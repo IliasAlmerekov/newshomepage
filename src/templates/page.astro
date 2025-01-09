@@ -1,0 +1,61 @@
+---
+/***
+* P1 Default Page Template
+* @description Default page template for content pages
+*/
+import { type SbBlokData } from "@storyblok/astro"
+import StoryblokComponent from "@storyblok/astro/StoryblokComponent.astro"
+ 
+const { blok } = Astro.props
+---
+ 
+<div class="content">
+  {
+    blok.body?.filter((blok: { component: string }) => blok.component === "Header")
+    .map((blok:SbBlokData) => (
+      <StoryblokComponent blok={blok} />
+    ))
+  }
+  <div class="content-grid">
+    {
+      blok.body?.filter((blok: {component: string}) => blok.component != "Header")
+      .map((blok:SbBlokData) => (
+        <StoryblokComponent blok={blok} />
+      ))
+    }
+  </div>
+</div>
+ 
+
+
+  <style>
+.content {
+  margin: auto;
+  max-width: 1440px;
+  height: auto;
+  padding: 50px;
+  font-weight: var(--fw-regular);
+}
+
+.content-grid {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  margin-top: 40px;
+  grid-gap: 30px;
+}
+
+@media (max-width: 475px) {
+  .content {
+    align-content: center;
+    max-width: 376px;
+    padding: 15px;
+  }
+  .content-grid {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+}
+
+  </style>

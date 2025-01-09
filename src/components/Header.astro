@@ -1,0 +1,164 @@
+---
+import type { SbBlokData } from '@storyblok/astro'
+import '../styles/style.css'
+
+export interface headerItem {
+  Logo?: any,
+}
+
+export interface navigationItems {
+    link?: any,
+    title?: string,
+}
+
+export interface header {
+    navigation?: navigationItems[],
+}
+ 
+export interface Props {
+  blok: SbBlokData & header & headerItem
+}
+ 
+const { blok } = Astro.props
+
+---
+
+<header>
+    <div class="logo">
+        <a href="/" class="logo">
+            <img src={blok.Logo.filename} alt="Logo" />
+        </a>
+    </div>
+
+
+    <input type="checkbox" id="menu-sidebar">
+    <div class="overlay"></div>
+    <label for="menu-sidebar" id="burger">
+        <div></div>
+        <div></div>
+        <div></div>
+    </label>
+    <nav class="sidebarMenu">
+        <ul>
+            {blok.navigation?.map((item) => <li><a href={item.link.cached_url === 'home' ? '/' : item.link.cached_url}>{item.title}</a></li>)}
+        </ul>
+    </nav>
+
+</header>
+
+
+<style>
+    header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+   nav ul {
+    display: flex;
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+        cursor: pointer;
+        gap: 3rem;
+    }
+    nav ul li a{
+        color: var(--dark-grayish-blue);
+        text-decoration: none;
+        font-size: 14px;
+    }
+    nav ul li a:hover {
+        color: var(--soft-orange);
+    }
+
+    #menu-sidebar {
+        display: none;
+    }
+
+    @media screen and (max-width:475px) {
+        .sidebarMenu {
+            background: var(--off-white);
+            width: 15rem;
+            height: 100vh;
+            position: fixed;
+            right: 0;
+            transition-timing-function: cubic-bezier(10,2,3,1);
+            transform: translateX(50rem);
+            top: 0;
+            z-index: 2;
+            transition: transform 0.5 ease;
+        }
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background-color: rgba(0, 0, 0, 0);
+            transition: background-color 0.5s ease;
+            z-index: 1;
+            pointer-events: none;
+        }
+        #menu-sidebar:checked ~ .overlay {
+            background-color: rgba(0, 0, 0, 0.5);
+            pointer-events: auto;
+        }
+
+        #menu-sidebar:checked ~ .sidebarMenu {
+            transform: translateX(0rem);
+        }
+
+        .sidebarMenu ul {
+        flex-direction: column;
+        align-items:flex-start;
+        padding-left: 10px;
+        margin: 0;
+        gap: 20px;
+        cursor: pointer;
+        margin-top: 180px;
+    }
+    nav ul li a{
+        color: var(--very-dark-blue);
+        font-weight: var(--fw-regular);
+        text-decoration: none;
+        font-size: 18px;
+    }
+        #menu-sidebar {
+            display: none;
+        }
+
+        #menu-sidebar:checked ~ .sidebarMenu {
+            transform: translateX(0rem);
+        }
+        #burger {
+            position: absolute;
+            cursor: pointer;
+            width: 2rem;
+            height: 1.2rem;
+            right: 1.5rem;
+            top: 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            flex-direction: column;
+            margin-top: 10px;
+        }
+        #burger > div {
+            height: 2.5px;
+            background-color: var(--very-dark-blue);
+            transition: 0.5s;
+            z-index: 999;
+        }
+        #menu-sidebar:checked ~ #burger > div {
+            background-color: var(--very-dark-blue);
+        }
+        #menu-sidebar:checked ~ #burger > div:nth-child(1) {
+            transform: translateY(1px) rotate(45deg);
+        }
+        #menu-sidebar:checked ~ #burger > div:nth-child(2) {
+            opacity: 0;
+        }
+        #menu-sidebar:checked ~ #burger > div:nth-child(3) {
+            transform: translateY(-15px) rotate(-45deg);
+        }
+    }
+</style>

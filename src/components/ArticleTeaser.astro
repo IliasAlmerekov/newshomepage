@@ -1,0 +1,102 @@
+---
+import '../styles/style.css'
+import type { SbBlokData } from '@storyblok/astro'
+
+export interface articleTeaserItem {
+  articleImage?: any,
+  headline?: string,
+  text?: string,
+  link?: any,
+}
+
+export interface article {
+  articleItem?: articleTeaserItem[],
+}
+
+export interface Props {
+  blok: SbBlokData & article
+}
+
+const {blok} = Astro.props
+---
+
+<section class="popular-articles">
+  {
+    blok.articleItem?.map((item, index) =>
+      <a class="popular" href={item.link.url}><img src={item.articleImage.filename} alt={item.headline} />
+        <div class="content">
+        <span>{(index + 1).toString().padStart(2, '0')}</span>
+        <h3>{item.headline}</h3>
+        <p>{item.text}</p>
+      </div>
+      </a>
+  )
+  }
+</section>
+<style>
+
+.popular-articles {
+  display: flex;
+  grid-column: 1 / -1;
+  justify-content: center;
+  align-items: center;
+  padding: 0;
+  margin-top: 40px;
+  gap: 30px;
+}
+
+.popular {
+  display: flex;
+  justify-content: left;
+  align-items: center;
+  text-decoration: none;
+}
+.popular img {
+  height: 110px;
+  margin-right: 10px;
+}
+.content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+}
+.content span {
+  font-size: var(--fs-700);
+  font-weight: 700;
+  color: var(--soft-red);
+}
+
+.content h3 {
+  font-size: var(--fs-400);
+  margin: 0;
+  cursor: pointer;
+  color: var( --very-dark-blue);
+}
+.content h3:hover {
+  color: var(--soft-red);
+}
+
+.content p {
+  font-size: 14px;
+  color: var(--dark-grayish-blue);
+  line-height: 1.5;
+}
+
+@media screen and (max-width: 475px) {
+  .popular-articles {
+    display: block;
+    padding: 0;
+  }
+  .popular {
+    display: flex;
+    align-items: center;
+  }
+  .popular a {
+    padding: 0;
+  }
+  .popular a img {
+  height: 100%;
+}
+}
+</style>
