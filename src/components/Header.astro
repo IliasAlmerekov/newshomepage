@@ -1,5 +1,5 @@
 ---
-import type { SbBlokData } from '@storyblok/astro'
+import { useStoryblokApi } from '@storyblok/astro'
 import '../styles/style.css'
 
 export interface headerItem {
@@ -12,21 +12,23 @@ export interface navigationItems {
 }
 
 export interface header {
-    navigation?: navigationItems[],
+    Navigation?: navigationItems[],
 }
- 
-export interface Props {
-  blok: SbBlokData & header & headerItem
-}
- 
-const { blok } = Astro.props
+const storyblokApi = useStoryblokApi()
 
+const { data } = await storyblokApi.get(`cdn/stories/globals/f1header`, {
+	version:
+	(import.meta.env.STORYBLOK_IS_PREVIEW || process.env.STORYBLOK_IS_PREVIEW) === "yes"
+	? 'draft'
+	: 'published'
+	})
+	const headerNavigation = data.story.content;
 ---
 
 <header>
     <div class="logo">
         <a href="/" class="logo">
-            <img src={blok.Logo.filename} alt="Logo" />
+            <img src={headerNavigation.logo.filename} alt="Logo" />
         </a>
     </div>
 
@@ -40,7 +42,7 @@ const { blok } = Astro.props
     </label>
     <nav class="sidebarMenu">
         <ul>
-            {blok.navigation?.map((item) => <li><a href={item.link.cached_url === 'home' ? '/' : item.link.cached_url}>{item.title}</a></li>)}
+            {headerNavigation.Navigation?.map((item:any) => <li><a href={item.link.cached_url === 'home' ? '/' : item.link.cached_url}>{item.title}</a></li>)}
         </ul>
     </nav>
 

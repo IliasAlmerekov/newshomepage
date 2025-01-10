@@ -35,8 +35,16 @@ function getSlug(slug: string | undefined) {
 }
 
 const { data } = await storyblokApi.get(`cdn/stories/${getSlug(slug)}`, {
-  version: 'draft',
-})
+  version:
+  (import.meta.env.STORYBLOK_IS_PREVIEW || process.env.STORYBLOK_IS_PREVIEW) === "yes"
+	? 'draft'
+	: 'published'
+	})
+  .catch((error) => {
+		console.error('Error', error)
+		return { data: null }
+	})
+  
 if (data === null) {
   return new Response('Not found', { status: 404 })
 }

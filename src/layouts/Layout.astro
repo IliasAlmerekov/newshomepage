@@ -1,3 +1,6 @@
+---
+import Header from "../components/Header.astro"
+---
 <!doctype html>
 <html lang="en">
 	<head>
@@ -6,9 +9,26 @@
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<title>News Homepage</title>
 	</head>
-	<body>
 		<main>
+			<Header />
 			<slot />
 		</main>
 	</body>
 </html>
+
+<style>
+	main {
+  		margin: auto;
+  		max-width: 1440px;
+  		height: auto;
+  		padding: 50px;
+  		font-weight: var(--fw-regular);
+		}
+		@media screen and (max-width:475px) {
+	main {
+    align-content: center;
+    max-width: 376px;
+    padding: 15px;
+  }
+		}
+</style>
