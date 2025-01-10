@@ -19,6 +19,7 @@ export interface Props {
 } 
 
 const {blok} = Astro.props
+
 ---
 
 
@@ -42,9 +43,9 @@ const {blok} = Astro.props
   background-color: var(--very-dark-blue);
   color:var( --off-white);
   padding: 20px;
-}
 
-.new-articles h2 {
+
+h2 {
   color: var(--soft-orange);
   font-weight: 600;
   font-size: var(--fs-800);
@@ -52,49 +53,50 @@ const {blok} = Astro.props
   margin: 0;
 }
 
-.new-articles .card {
+.card {
   padding: 0;
   border-bottom: 1px solid var(--dark-grayish-blue);
 }
 
-.new-articles .card:last-child {
+.card:last-child {
   border-bottom: none;
 }
 
-.new-articles h3 a{
+h3 a{
   font-size: var(--fs-500);
   font-weight: bold;
   color: var(--off-white);
   cursor: pointer;
   text-decoration: none;
 }
-.new-articles h3 a:hover {
+ h3 a:hover {
   font-size: var(--fs-500);
   font-weight: bold;
   color: var(--soft-orange);
 }
-.new-articles p {
+ p {
   color:var(--dark-grayish-blue);
   font-size: var(--fs-400);
 }
 
 @media screen and (max-width: 475px) {
-  .new-articles {
+  
     display: flex;
     flex-direction: column;
     margin-top: 20px;
     gap: 15px;
-  }
-  .new-articles h2 {
+
+ h2 {
   color: var(--soft-orange);
   font-weight: 600;
   font-size: var(--fs-700);
   padding: 0;
   margin: 0;
 }
-.new-articles .card p {
+.card p {
   color:var(--dark-grayish-blue);
   font-size: 15px;
 }
 }
+    }
 </style>

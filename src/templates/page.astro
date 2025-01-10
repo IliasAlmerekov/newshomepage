@@ -9,13 +9,13 @@ import StoryblokComponent from "@storyblok/astro/StoryblokComponent.astro"
 const { blok } = Astro.props
 ---
  
-<div class="content">
-  {
+
+  <!-- {
     blok.body?.filter((blok: { component: string }) => blok.component === "Header")
     .map((blok:SbBlokData) => (
       <StoryblokComponent blok={blok} />
     ))
-  }
+  } -->
   <div class="content-grid">
     {
       blok.body?.filter((blok: {component: string}) => blok.component != "Header")
@@ -24,18 +24,11 @@ const { blok } = Astro.props
       ))
     }
   </div>
-</div>
+
  
 
 
   <style>
-.content {
-  margin: auto;
-  max-width: 1440px;
-  height: auto;
-  padding: 50px;
-  font-weight: var(--fw-regular);
-}
 
 .content-grid {
   display: grid;
@@ -45,11 +38,6 @@ const { blok } = Astro.props
 }
 
 @media (max-width: 475px) {
-  .content {
-    align-content: center;
-    max-width: 376px;
-    padding: 15px;
-  }
   .content-grid {
     display: flex;
     flex-direction: column;
