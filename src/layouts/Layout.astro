@@ -1,5 +1,6 @@
 ---
-import Header from "../components/Header.astro"
+import Header from "../components/modules/function/F1-Header.astro"
+import Footer from "../components/modules/function/F2-Footer.astro"
 ---
 <!doctype html>
 <html lang="en">
@@ -9,26 +10,27 @@ import Header from "../components/Header.astro"
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<title>News Homepage</title>
 	</head>
+	<body>
+		<Header />
 		<main>
-			<Header />
 			<slot />
 		</main>
+		<Footer/>
 	</body>
 </html>
 
 <style>
-	main {
-  		margin: auto;
+	body {
   		max-width: 1440px;
-  		height: auto;
-  		padding: 50px;
+		margin: 0 auto;
+		padding: 0 150px 0 150px;
   		font-weight: var(--fw-regular);
 		}
 		@media screen and (max-width:475px) {
-	main {
-    align-content: center;
-    max-width: 376px;
-    padding: 15px;
-  }
+	body {
+		margin: 0;
+		padding: 0 20px 0 20px;
+
+	}
 		}
 </style>

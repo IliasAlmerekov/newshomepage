@@ -5,7 +5,6 @@ const env = loadEnv("", process.cwd(), "STORYBLOK");
 import { loadEnv } from "vite";
 import react from "@astrojs/react";
 import basicSsl from "@vitejs/plugin-basic-ssl";
-import P1Article from "./src/templates/P1-Article.astro";
 
 // https://astro.build/config
 export default defineConfig({
@@ -18,10 +17,10 @@ export default defineConfig({
       components: {
         stage: "components/Stage",
         newsTeaser: "components/Teaser",
-        page: "templates/page",
-        Globals: "components/Header",
+        page: "templates/P1-Generic",
+        Globals: "components/modules/function/F1-Header",
         articleTeaser: "components/ArticleTeaser",
-        article: "templates/P1-Article",
+        article: "templates/P2-Article",
       },
     }),
   ],
