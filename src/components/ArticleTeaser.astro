@@ -1,33 +1,39 @@
 ---
 import '../styles/style.css'
-import type { SbBlokData } from '@storyblok/astro'
+import { useStoryblokApi} from '@storyblok/astro'
 
-export interface articleTeaserItem {
+export interface articleTeaserItemProps {
+  link?: any,
   articleImage?: any,
   headline?: string,
   text?: string,
-  link?: any,
 }
-
 export interface article {
-  articleItem?: articleTeaserItem[],
+  articleItem?: articleTeaserItemProps[],
 }
 
-export interface Props {
-  blok: SbBlokData & article
-}
+let articles = []
 
-const {blok} = Astro.props
+const storyblokApi = useStoryblokApi()
+
+const {data} = await storyblokApi.get(`cdn/stories`, {
+  content_type: 'article',
+  version:
+  (import.meta.env.STORYBLOK_IS_PREVIEW || process.env.STORYBLOK_IS_PREVIEW) === "yes"
+  ? 'draft'
+  : 'published'
+})
+articles = data.stories
 ---
 
 <section class="popular-articles">
   {
-    blok.articleItem?.map((item, index) =>
-      <a class="popular" href={item.link.url}><img src={item.articleImage.filename} alt={item.headline} />
+    articles.map((item: any, index: any) =>
+      <a class="popular" href={item.content.link.cached_url}><img src={item.content.image.filename} alt={item.content.headline} />
         <div class="content">
         <span>{(index + 1).toString().padStart(2, '0')}</span>
-        <h3>{item.headline}</h3>
-        <p>{item.text}</p>
+        <h3>{item.content.headline}</h3>
+        <p>{item.content.text}</p>
       </div>
       </a>
   )
