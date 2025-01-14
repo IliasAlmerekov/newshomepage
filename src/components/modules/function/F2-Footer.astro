@@ -69,10 +69,23 @@ const footerNavigation = data.story.content;
       color: var(--soft-red, #e63946);
     }
 
-    @media screen and (max-width: 475px) {
+    @media screen and (max-width: 678px) {
       .footer {
         padding: 10 0 10px 0;
       }
+    }
+      @media screen and (max-width: 450px) {
+      .footer {
+        padding: 20 0 20px 0;
+      }
+      .footer-nav {
+      display: flex;
+      flex-direction: column;
+      text-align: center;
+      justify-content: center;
+      margin-top: 1rem;
+      gap: 1.5rem;
+    }
     }
   </style>
   
