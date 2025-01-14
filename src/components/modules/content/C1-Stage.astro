@@ -1,10 +1,11 @@
 ---
 import type { SbBlokData } from '@storyblok/astro'
-import '../styles/style.css'
+import '../../../styles/style.css'
 
 
 export interface stage {
   stageImage?: any,
+  mobileStageImage?: any,
   headline?: string,
   text?: string,
   link?: any,
@@ -19,8 +20,8 @@ const { blok } = Astro.props
 ---
 
 <section class="home-article">
-            <img class="image-web3-desktop" src={blok.stageImage.filename} alt="">
-            <img class="image-web3-mobile" src="/images/image-web-3-mobile.jpg" alt="">
+            <img class="image-web3-desktop" src={blok.stageImage.filename} alt={blok.stageImage.filename}>
+            <img class="image-web3-mobile" src={blok.mobileStageImage.filename} alt={blok.mobileStageImage.filename}>
             <div class="first-section">
                 <div class="intro">
                     <h1>{blok.headline}</h1>

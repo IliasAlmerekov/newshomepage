@@ -7,6 +7,7 @@ export interface articleTeaserItemProps {
   articleImage?: any,
   headline?: string,
   text?: string,
+  subline?: string,
 }
 export interface article {
   articleItem?: articleTeaserItemProps[],
@@ -25,7 +26,7 @@ const {data} = await storyblokApi.get(`cdn/stories`, {
 })
 articles = data.stories
 
-//hier noch content
+
 ---
 
 <section class="popular-articles">
@@ -35,7 +36,7 @@ articles = data.stories
         <div class="content">
         <span>{(index + 1).toString().padStart(2, '0')}</span>
         <h3>{item.content.headline}</h3>
-        <p>{item.content.text}</p>
+        <p>{item.content.subline}</p>
       </div>
       </a>
   )
@@ -61,7 +62,7 @@ articles = data.stories
 }
 .popular img {
   height: 110px;
-  margin-right: 10px;
+  margin-right: 15px;
 }
 .content {
   display: flex;
