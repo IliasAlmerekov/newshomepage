@@ -19,7 +19,7 @@ export default defineConfig({
         newsTeaser: "components/modules/teaser/T1-Teaser",
         page: "templates/P1-Generic",
         Globals: "components/modules/function/F1-Header",
-        articleTeaser: "components/modules/teaser/ArticleTeaser",
+        articleTeaser: "components/modules/teaser/T2-ArticleTeaser",
         article: "templates/P2-Article",
       },
     }),
