@@ -83,13 +83,19 @@ const { blok } = Astro.props
   font-size: 14px;
   font-weight: var(--fw-semi-bold);
     }
-    @media screen and (min-width: 475px) {
+    @media screen and (min-width: 678px) {
         .home-article .image-web3-mobile {
             display: none;
         }
     }
 
-    @media screen and (max-width: 475px) {
+    @media screen and (max-width: 300px) {
+        .home-article .image-web3-mobile {
+            display: none;
+        }
+    }
+
+    @media screen and (max-width: 678px) {
         .home-article .image-web3-desktop {
             display: none;
         }
