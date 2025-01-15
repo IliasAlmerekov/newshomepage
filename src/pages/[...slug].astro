@@ -2,43 +2,53 @@
 import { useStoryblokApi } from '@storyblok/astro'
 import StoryblokComponent from '@storyblok/astro/StoryblokComponent.astro'
 import Layout from '../layouts/Layout.astro'
+import { undefined} from 'astro:schema'
 
 
 
 export async function getStaticPaths() {
+  let languages = ["en", "de"]
   const storyblokApi = useStoryblokApi()
   const links = await storyblokApi.getAll('cdn/links', {
     version: 'draft',
   })
-  return links
+  let paths: any[] = []
+  links
     .filter((link) => !link.is_folder)
-    .map((link) => {
-      return {
+    .forEach((link: {slug: string }) => {
+      languages.forEach((language) => {
+        let slug = link.slug === 'home' ? undefined : link.slug
+        let full_url = language === 'en' ? slug : `${language}/${slug ?? ''}`
+        let langSwitch = {}
+        languages.forEach((lang) => {
+          langSwitch = {
+            ...langSwitch,
+            [lang]: lang === 'en' ? `/${slug ?? ''}` : `/${lang}/${slug ?? ''}`,
+          }
+        })
+        paths.push({
+          props: {language, slug, langSwitch},
         params: {
-          slug: link.slug === 'home' ? undefined : link.slug,
+          slug: full_url,
         },
-      }
+        })
+      })
     })
+    return paths
 }
 
 
 
 
-const { slug } = Astro.params
+const { slug, language, langSwitch } = Astro.props
 const storyblokApi = useStoryblokApi()
- 
-function getSlug(slug: string | undefined) {
-  if (slug === undefined) {
-    return 'home'
-  }
-  return slug
-}
-
-const { data } = await storyblokApi.get(`cdn/stories/${getSlug(slug)}`, {
+const { data } = await storyblokApi.get(`cdn/stories/${slug === undefined ? 'home' : slug}`,
+ {
   version:
   (import.meta.env.STORYBLOK_IS_PREVIEW || process.env.STORYBLOK_IS_PREVIEW) === "yes"
 	? 'draft'
-	: 'published'
+	: 'published',
+  language,
 	})
   .catch((error) => {
 		console.error('Error', error)

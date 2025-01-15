@@ -1,19 +1,8 @@
 ---
 import { useStoryblokApi } from '@storyblok/astro'
 import '../../../styles/style.css'
+import type { BASIC } from '../../../types/BASIC';
 
-export interface headerItem {
-  Logo?: any,
-}
-
-export interface navigationItems {
-    link?: any,
-    title?: string,
-}
-
-export interface header {
-    Navigation?: navigationItems[],
-}
 const storyblokApi = useStoryblokApi()
 
 const { data } = await storyblokApi.get(`cdn/stories/globals/f1header`, {
@@ -21,14 +10,15 @@ const { data } = await storyblokApi.get(`cdn/stories/globals/f1header`, {
 	(import.meta.env.STORYBLOK_IS_PREVIEW || process.env.STORYBLOK_IS_PREVIEW) === "yes"
 	? 'draft'
 	: 'published'
-	})
-	const headerNavigation = data.story.content;
+	});
+
+	const headerNavigation: BASIC.GlobalProps = data.story.content;
 ---
 
 <header>
     <div class="logo">
         <a href="/" class="logo">
-            <img src={headerNavigation.logo.filename} alt="Logo" />
+            <img src={headerNavigation.logo.filename} alt={headerNavigation.alt} />
         </a>
     </div>
 
@@ -42,7 +32,7 @@ const { data } = await storyblokApi.get(`cdn/stories/globals/f1header`, {
     </label>
     <nav class="sidebarMenu">
         <ul>
-            {headerNavigation.Navigation?.map((item:any) => <li><a href={item.link.cached_url === 'home' ? '/' : item.link.cached_url}>{item.title}</a></li>)}
+            {headerNavigation.Navigation?.map((item:BASIC.NavigationItems) => <li><a href={item.link?.cached_url === 'home' ? '/' : item.link?.cached_url}>{item.title}</a></li>)}
         </ul>
     </nav>
 
@@ -62,8 +52,8 @@ const { data } = await storyblokApi.get(`cdn/stories/globals/f1header`, {
         list-style-type: none;
         margin: 0;
         padding: 0;
-        cursor: pointer;
         gap: 3rem;
+        cursor: pointer;
     }
     nav ul li a{
         color: var(--dark-grayish-blue);
@@ -85,11 +75,11 @@ const { data } = await storyblokApi.get(`cdn/stories/globals/f1header`, {
             height: 100vh;
             position: fixed;
             right: 0;
-            transition-timing-function: cubic-bezier(10,2,3,1);
-            transform: translateX(50rem);
             top: 0;
+            transition-timing-function: cubic-bezier(0.4,0.0,0.2,1);
+            transform: translateX(50rem);
             z-index: 2;
-            transition: transform 0.5 ease;
+            transition: transform 0.5s ease;
         }
         .overlay {
             position: fixed;
@@ -115,10 +105,9 @@ const { data } = await storyblokApi.get(`cdn/stories/globals/f1header`, {
         flex-direction: column;
         align-items:flex-start;
         padding-left: 25px;
-        margin: 0;
+        margin: 180px 0 0;
         gap: 20px;
         cursor: pointer;
-        margin-top: 180px;
     }
     nav ul li a{
         color: var(--very-dark-blue);
@@ -126,10 +115,6 @@ const { data } = await storyblokApi.get(`cdn/stories/globals/f1header`, {
         text-decoration: none;
         font-size: 18px;
     }
-        #menu-sidebar {
-            display: none;
-        }
-
         #menu-sidebar:checked ~ .sidebarMenu {
             transform: translateX(0rem);
         }
@@ -141,8 +126,8 @@ const { data } = await storyblokApi.get(`cdn/stories/globals/f1header`, {
             right: 1.5rem;
             top: 3rem;
             display: flex;
-            justify-content: space-between;
             flex-direction: column;
+            justify-content: space-between;
             margin-top: 10px;
         }
         #burger > div {
