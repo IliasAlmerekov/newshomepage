@@ -5,7 +5,9 @@ import '../../../styles/style.css'
 export interface teaserItem {
   headline?: string,
   text?: string,
-  link?: any,
+  link: {
+    cached_url?: string,
+  }
 }
 
 
@@ -28,7 +30,7 @@ const {blok} = Astro.props
   {
   blok.newsItems?.map((item) =>
   <div class="card">
-    <h3><a href={item.link.url}>{item.headline}</a></h3>
+    <h3><a href={item.link.cached_url}>{item.headline}</a></h3>
     <p>{item.text}</p>
   </div>
 )

@@ -1,27 +1,33 @@
 ---
-import type { SbBlokData } from '@storyblok/astro'
 import '../../../styles/style.css'
+import type {BASIC} from '../../../types/BASIC';
+import type { SbBlokData } from '@storyblok/astro';
 
+export interface StageProps {
+    stageImage: {
+        filename?: string,
+    }
+    link: {
+        cached_url?: string,
+    }
+    mobileStageImage: {
+        filename?: string,
+    }
+    headline?: string;
+    text?: string;
+    alt?: string;
+  }
 
-export interface stage {
-  stageImage?: any,
-  mobileStageImage?: any,
-  headline?: string,
-  text?: string,
-  link?: any,
+  export interface Props {
+    blok: SbBlokData & StageProps;
+  }
 
-}
- 
-export interface Props {
-  blok: SbBlokData & stage
-}
- 
-const { blok } = Astro.props
+const {blok} = Astro.props;
 ---
 
 <section class="home-article">
-            <img class="image-web3-desktop" src={blok.stageImage.filename} alt={blok.stageImage.filename}>
-            <img class="image-web3-mobile" src={blok.mobileStageImage.filename} alt={blok.mobileStageImage.filename}>
+            <img class="image-web3-desktop" src={blok.stageImage.filename} alt={blok.alt}>
+            <img class="image-web3-mobile" src={blok.mobileStageImage.filename} alt={blok.alt}>
             <div class="first-section">
                 <div class="intro">
                     <h1>{blok.headline}</h1>
@@ -38,8 +44,7 @@ const { blok } = Astro.props
     .home-article {
         display: grid;
         grid-column: 1 / span 8;
-    }
-  
+  }
     .first-section {
         display: grid;
         grid-template-columns: 1.1fr 1fr;
@@ -134,5 +139,4 @@ const { blok } = Astro.props
         text-decoration: none;
 }
     }
-
 </style>
