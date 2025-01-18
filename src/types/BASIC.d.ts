@@ -1,4 +1,3 @@
-import type { SbBlokData } from "@storyblok/astro";
 
 declare namespace BASIC {
   export interface NavigationItems {

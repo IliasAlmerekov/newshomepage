@@ -1,43 +1,44 @@
 ---
-import Header from "../components/modules/function/F1-Header.astro"
-import Footer from "../components/modules/function/F2-Footer.astro"
+import Header from "../components/modules/function/F1-Header.astro";
+import Footer from "../components/modules/function/F2-Footer.astro";
+
+const { language, langSwitch, title } = Astro.props;
 ---
+
 <!doctype html>
-<html lang="en">
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<title>News Homepage</title>
-	</head>
-	<body>
-		<Header />
-		<main>
-			<slot />
-		</main>
-		<Footer/>
-	</body>
+<html lang={language}>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <title>{title}</title>
+  </head>
+  <body>
+    <Header langSwitch={langSwitch} language={language} />
+    <main>
+      <slot />
+    </main>
+    <Footer />
+  </body>
 </html>
 
 <style>
-	body {
-  		max-width: 1440px;
-		margin: 0 auto;
-		padding: 0 150px 0 150px;
-  		font-weight: var(--fw-regular);
-		}
-		@media screen and (max-width:475px) {
-	body {
-		margin: 0;
-		padding: 0 20px 0 20px;
-
-	}
-		}
-		@media screen and (max-width:768px) {
-	body {
-		margin: 0;
-		padding: 0 40px 0 40px;
-
-	}
-		}
+  body {
+    max-width: 1440px;
+    margin: 0 auto;
+    padding: 0 150px 0 150px;
+    font-weight: var(--fw-regular);
+  }
+  @media screen and (max-width: 475px) {
+    body {
+      margin: 0;
+      padding: 0 20px 0 20px;
+    }
+  }
+  @media screen and (max-width: 768px) {
+    body {
+      margin: 0;
+      padding: 0 40px 0 40px;
+    }
+  }
 </style>

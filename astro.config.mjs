@@ -12,6 +12,9 @@ export default defineConfig({
     react(),
     storyblok({
       accessToken: env.STORYBLOK_TOKEN,
+      apiOptions: {
+        region: "eu",
+      },
       enableFallbackComponent: true,
       // customFallbackComponent: 'components/modules/content/CustomFallback',
       components: {
@@ -22,6 +25,7 @@ export default defineConfig({
         f2Footer: "components/modules/function/F2-Footer",
         articleTeaser: "components/modules/teaser/T2-ArticleTeaser",
         article: "templates/P2-Article",
+        textBlock: "templates/P3-TextBlock",
       },
     }),
   ],
