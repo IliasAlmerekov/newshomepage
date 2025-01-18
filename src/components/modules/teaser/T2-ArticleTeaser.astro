@@ -1,13 +1,22 @@
 ---
 import '../../../styles/style.css'
 import { useStoryblokApi} from '@storyblok/astro'
+import { getTransLink } from '../../../utils/lang';
+
 
 export interface articleTeaserItemProps {
-  link?: any,
-  articleImage?: any,
+  content: {
+  image: {
+    filename: string,
+  },
+  articleImage: {
+    filename: string,
+  },
   headline?: string,
   text?: string,
   subline?: string,
+}
+slug?: string | undefined,
 }
 export interface article {
   articleItem?: articleTeaserItemProps[],
@@ -15,24 +24,26 @@ export interface article {
 
 let articles = []
 
-const storyblokApi = useStoryblokApi()
+const { language } = Astro.props;
+const storyblokApi = useStoryblokApi();
 
 const {data} = await storyblokApi.get(`cdn/stories`, {
   content_type: 'article',
   version:
   (import.meta.env.STORYBLOK_IS_PREVIEW || process.env.STORYBLOK_IS_PREVIEW) === "yes"
   ? 'draft'
-  : 'published'
+  : 'published',
+  language,
 })
 articles = data.stories
-
-
 ---
 
 <section class="popular-articles">
   {
-    articles.map((item: any, index: any) =>
-      <a class="popular" href={item.content.link.cached_url}><img src={item.content.image.filename} alt={item.content.headline} />
+    articles.map((item: articleTeaserItemProps, index: number) =>
+      <a class="popular" href={getTransLink(language, `/${item.slug}`)}>{item.content.image?.filename && (
+        <img src={item.content.image.filename} alt={item.content.headline} />
+      )}
         <div class="content">
         <span>{(index + 1).toString().padStart(2, '0')}</span>
         <h3>{item.content.headline}</h3>

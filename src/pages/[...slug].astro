@@ -1,60 +1,69 @@
 ---
-import { useStoryblokApi } from '@storyblok/astro'
-import StoryblokComponent from '@storyblok/astro/StoryblokComponent.astro'
-import Layout from '../layouts/Layout.astro'
-
-
+import { useStoryblokApi } from "@storyblok/astro";
+import StoryblokComponent from "@storyblok/astro/StoryblokComponent.astro";
+import Layout from "../layouts/Layout.astro";
 
 export async function getStaticPaths() {
-  const storyblokApi = useStoryblokApi()
-  const links = await storyblokApi.getAll('cdn/links', {
-    version: 'draft',
-  })
-  return links
-    .filter((link) => !link.is_folder)
-    .map((link) => {
-      return {
-        params: {
-          slug: link.slug === 'home' ? undefined : link.slug,
-        },
-      }
-    })
+  let languages = ["en", "de"];
+  const storyblokApi = useStoryblokApi();
+  const links = await storyblokApi.getAll("cdn/links", {
+    version: "draft",
+  });
+
+  let paths: any = [];
+  links.forEach((link: { slug: string }) => {
+    languages.forEach((language) => {
+      let slug = link.slug === "home" ? undefined : link.slug;
+      let full_url = language === "en" ? slug : `${language}/${slug ?? ""}`;
+      let langSwitch = {};
+      languages.forEach((lang) => {
+        langSwitch = {
+          ...langSwitch,
+          [lang]: lang === "en" ? `/${slug ?? ""}` : `/${lang}/${slug ?? ""}`,
+        };
+      });
+      paths.push({
+        props: { language, slug, langSwitch },
+        params: { slug: full_url },
+      });
+    });
+  });
+  return paths;
 }
 
+const { slug, language, langSwitch } = Astro.props;
+const storyblokApi = useStoryblokApi();
 
-
-
-const { slug } = Astro.params
-const storyblokApi = useStoryblokApi()
- 
 function getSlug(slug: string | undefined) {
   if (slug === undefined) {
-    return 'home'
+    return "home";
   }
-  return slug
+  return slug;
 }
 
-const { data } = await storyblokApi.get(`cdn/stories/${getSlug(slug)}`, {
-  version:
-  (import.meta.env.STORYBLOK_IS_PREVIEW || process.env.STORYBLOK_IS_PREVIEW) === "yes"
-	? 'draft'
-	: 'published'
-	})
+const { data } = await storyblokApi
+  .get(`cdn/stories/${getSlug(slug)}`, {
+    version:
+      (import.meta.env.STORYBLOK_IS_PREVIEW ||
+        process.env.STORYBLOK_IS_PREVIEW) === "yes"
+        ? "draft"
+        : "published",
+    language,
+  })
   .catch((error) => {
-		console.error('Error', error)
-		return { data: null }
-	})
-  
+    console.error("Error", error);
+    return { data: null };
+  });
+
 if (data === null) {
-  return new Response('Not found', { status: 404 })
+  return new Response("Not found", { status: 404 });
 }
- 
-const story = data.story ? data.story : null
+const title = data.story.name;
+const story = data.story ? data.story : null;
+
+console.log(title);
 ---
- 
-<Layout>
-    <StoryblokComponent blok={story.content} />
+
+<Layout langSwitch={langSwitch} language={language} title={title}>
+  <StoryblokComponent language={language} blok={story.content} />
 </Layout>
-
-
-
