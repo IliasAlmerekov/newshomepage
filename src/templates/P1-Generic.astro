@@ -1,42 +1,36 @@
 ---
 /***
-* P1 Default Page Template
-* @description Default page template for content pages
-*/
-import { type SbBlokData } from "@storyblok/astro"
-import StoryblokComponent from "@storyblok/astro/StoryblokComponent.astro"
- 
-const { blok } = Astro.props
+ * P1 Default Page Template
+ * @description Default page template for content pages
+ */
+import { type SbBlokData } from "@storyblok/astro";
+import StoryblokComponent from "@storyblok/astro/StoryblokComponent.astro";
+
+const { blok, language } = Astro.props;
 ---
 
-  <div class="content-grid">
-    {
-      blok.body?.filter((blok: {component: string}) => blok.component != "Header")
-      .map((blok:SbBlokData) => (
-        <StoryblokComponent blok={blok} />
-      ))
-    }
-  </div>
-
- 
-
-
-  <style>
-
-.content-grid {
-  display: grid;
-  grid-template-columns: repeat(12, 1fr);
-  margin-top: 40px;
-  grid-gap: 30px;
-}
-
-@media (max-width: 678px) {
-  .content-grid {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+<div class="content-grid">
+  {
+    blok.body?.map((blok: SbBlokData) => (
+      <StoryblokComponent language={language} blok={blok} />
+    ))
   }
-}
+</div>
 
-  </style>
+<style>
+  .content-grid {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    margin-top: 40px;
+    grid-gap: 30px;
+  }
+
+  @media (max-width: 678px) {
+    .content-grid {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+  }
+</style>

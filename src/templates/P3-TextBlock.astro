@@ -1,0 +1,49 @@
+---
+import {
+  renderRichText,
+  type ISbRichtext,
+  type SbBlokData,
+} from "@storyblok/astro";
+import "../styles/style.css";
+
+export interface TextBlockProps {
+  image?: {
+    filename?: string;
+  };
+  headline?: string;
+  text?: string;
+  richtext?: ISbRichtext | undefined;
+}
+
+export interface Props {
+  blok: SbBlokData & TextBlockProps;
+}
+
+const { blok } = Astro.props;
+
+const renderedRichText = renderRichText(blok.richtext);
+---
+
+<div class="stage-content">
+  <div class="stage">
+    <img src={blok.image?.filename} />
+    <h1>{blok.headline}</h1>
+    <p>{blok.text}</p>
+    <p set:html={renderedRichText} />
+  </div>
+</div>
+
+<style>
+  .stage-content {
+    margin-top: 50px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+
+    .stage {
+      max-width: 1200px;
+    }
+  }
+</style>
