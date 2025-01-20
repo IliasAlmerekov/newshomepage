@@ -50,7 +50,7 @@ const headerNavigation: BASIC.GlobalProps = data.story.content;
       }
       {
         languages.map((lang) => (
-          <a class="language" href={langSwitch[lang]}>
+          <a class="language" href={langSwitch?.[lang] || "#"}>
             {lang}
           </a>
         ))
@@ -95,7 +95,6 @@ const headerNavigation: BASIC.GlobalProps = data.story.content;
     color: var(--dark-grayish-blue);
     font-weight: bold;
     font-size: 14px;
-    text-transform: uppercase;
   }
 
   .language:hover {
