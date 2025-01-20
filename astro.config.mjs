@@ -25,7 +25,7 @@ export default defineConfig({
         f2Footer: "components/modules/function/F2-Footer",
         articleTeaser: "components/modules/teaser/T2-ArticleTeaser",
         article: "templates/P2-Article",
-        textBlock: "templates/P3-TextBlock",
+        teaser: "templates/P3-Teaser",
       },
     }),
   ],

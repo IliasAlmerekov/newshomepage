@@ -21,7 +21,14 @@ const headerNavigation: BASIC.GlobalProps = data.story.content;
 <header>
   <div class="logo">
     <a href={getTransLink(language, "/")} class="logo">
-      <img src={headerNavigation.logo.filename} alt={headerNavigation.alt} />
+      {
+        headerNavigation?.logo?.filename && (
+          <img
+            src={headerNavigation?.logo.filename}
+            alt={headerNavigation.alt}
+          />
+        )
+      }
     </a>
   </div>
 
