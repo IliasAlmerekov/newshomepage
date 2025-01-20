@@ -5,6 +5,7 @@ import {
   type SbBlokData,
 } from "@storyblok/astro";
 import "../styles/style.css";
+import { getTransLink } from "../utils/lang";
 
 export interface TextBlockProps {
   image?: {
@@ -15,11 +16,11 @@ export interface TextBlockProps {
   richtext?: ISbRichtext | undefined;
 }
 
-export interface Props {
+export interface Props extends BASIC.LanguageProps {
   blok: SbBlokData & TextBlockProps;
 }
 
-const { blok } = Astro.props;
+const { blok, language } = Astro.props;
 
 const renderedRichText = renderRichText(blok.richtext);
 ---
@@ -31,19 +32,44 @@ const renderedRichText = renderRichText(blok.richtext);
     <p>{blok.text}</p>
     <p set:html={renderedRichText} />
   </div>
+  <div class="btn-back"><a href={getTransLink(language, "/")}>Back</a></div>
 </div>
 
 <style>
   .stage-content {
-    margin-top: 50px;
     display: flex;
     flex-direction: column;
-    align-items: center;
     justify-content: center;
-    width: 100%;
+    align-items: center;
+    max-width: 800px;
+    padding: 50px;
+    margin: auto;
+    height: auto;
+    background-color: var(--off-white);
 
     .stage {
       max-width: 1200px;
+    }
+
+    .btn-back {
+      margin-top: 40px;
+    }
+    .btn-back a {
+      background-color: var(--soft-red);
+      color: var(--very-dark-blue);
+      padding: 14px 27px;
+      border: none;
+      cursor: pointer;
+      text-transform: uppercase;
+      letter-spacing: 4px;
+      font-size: 14px;
+      font-weight: var(--fw-semi-bold);
+      text-decoration: none;
+    }
+
+    .btn-back a:hover {
+      background-color: var(--very-dark-blue);
+      color: var(--off-white);
     }
   }
 </style>

@@ -14,4 +14,10 @@ declare namespace BASIC {
     copyright?: string;
     Navigation?: NavigationItems[];
   }
+
+  export interface LanguageProps {
+    language?: string,
+    langSwitch?: string,
+    slug?: string,
+  }
 }

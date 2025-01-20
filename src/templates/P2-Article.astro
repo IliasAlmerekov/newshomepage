@@ -7,8 +7,8 @@ import {
 } from "@storyblok/astro";
 import cloneDeep from "clone-deep";
 import "../styles/style.css";
-export interface p2ArticleProps {
-  //ref
+import { getTransLink } from "../utils/lang";
+export interface ArticleProps {
   image?: {
     filename?: string;
   };
@@ -24,12 +24,12 @@ export interface p2ArticleProps {
   richtext?: ISbRichtext | undefined;
 }
 
-export interface Props {
-  blok: SbBlokData & p2ArticleProps;
+export interface Props extends BASIC.LanguageProps {
+  blok: SbBlokData & ArticleProps;
 }
 
 const mySchema = cloneDeep(RichTextSchema);
-const { blok } = Astro.props;
+const { blok, language } = Astro.props;
 
 const renderedRichText = renderRichText(blok.richtext, {
   schema: mySchema,
@@ -41,7 +41,7 @@ const renderedRichText = renderRichText(blok.richtext, {
         <h2>${blok.headline}</h2>
         ${blok.newsItems
           .map(
-            (item: p2ArticleProps) =>
+            (item: ArticleProps) =>
               `<h3><a href=${item.link.cached_url}>${item.headline}</a></h3>
         <p>${item.text}</p>
         `
@@ -67,7 +67,7 @@ const renderedRichText = renderRichText(blok.richtext, {
     <p>{blok.text}</p>
     <div class="richtext-content" set:html={renderedRichText} />
   </div>
-  <div class="btn-back"><a href="/">Back</a></div>
+  <div class="btn-back"><a href={getTransLink(language, "/")}>Back</a></div>
 </div>
 <style>
   .article {
