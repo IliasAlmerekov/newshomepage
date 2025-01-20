@@ -4,27 +4,35 @@ import StoryblokComponent from "@storyblok/astro/StoryblokComponent.astro";
 import Layout from "../layouts/Layout.astro";
 
 export async function getStaticPaths() {
-  let languages = ["en", "de"];
+  let languages = ["en", "de"]; //define the supported languages
   const storyblokApi = useStoryblokApi();
   const links = await storyblokApi.getAll("cdn/links", {
-    version: "draft",
-  });
+    version:
+      (import.meta.env.STORYBLOK_IS_PREVIEW ||
+        process.env.STORYBLOK_IS_PREVIEW) === "yes"
+        ? "draft"
+        : "published",
+  }); // get all links(pages) from storyblok in draft mode
 
-  let paths: any = [];
+  let paths: any = []; //array for each page and languages
   links.forEach((link: { slug: string }) => {
     languages.forEach((language) => {
+      //if the page is home, set root path
       let slug = link.slug === "home" ? undefined : link.slug;
+      //if the page is English, use only slug, else add the language before slug
       let full_url = language === "en" ? slug : `${language}/${slug ?? ""}`;
-      let langSwitch = {};
+      //links for all languages
+      let langSwitch: Record<string, string> = {};
       languages.forEach((lang) => {
-        langSwitch = {
-          ...langSwitch,
-          [lang]: lang === "en" ? `/${slug ?? ""}` : `/${lang}/${slug ?? ""}`,
-        };
+        langSwitch[lang] =
+          lang === "en" ? `/${slug ?? ""}` : `/${lang}/${slug ?? ""}`;
       });
+
+      //add the URL and data to the paths list
       paths.push({
+        //pass as props props:
         props: { language, slug, langSwitch },
-        params: { slug: full_url },
+        params: { slug: full_url || undefined },
       });
     });
   });
@@ -35,10 +43,7 @@ const { slug, language, langSwitch } = Astro.props;
 const storyblokApi = useStoryblokApi();
 
 function getSlug(slug: string | undefined) {
-  if (slug === undefined) {
-    return "home";
-  }
-  return slug;
+  return slug ?? "home";
 }
 
 const { data } = await storyblokApi
@@ -55,13 +60,12 @@ const { data } = await storyblokApi
     return { data: null };
   });
 
-if (data === null) {
-  return new Response("Not found", { status: 404 });
+if (!data) {
+  console.error(`Globals not found for slug: ${slug}, language: ${language}`);
+  return new Response("Globals not found", { status: 404 });
 }
 const title = data.story.name;
 const story = data.story ? data.story : null;
-
-console.log(title);
 ---
 
 <Layout langSwitch={langSwitch} language={language} title={title}>
