@@ -8,13 +8,7 @@ import {
 import cloneDeep from "clone-deep";
 import "../styles/style.css";
 import { getTransLink } from "../utils/lang";
-export interface ArticleProps {
-  image?: {
-    filename?: string;
-  };
-  articleContentImage?: {
-    filename?: string;
-  };
+export interface ArticleProps extends BASIC.ImageProps {
   link: {
     cached_url?: string;
   };
@@ -58,8 +52,8 @@ const renderedRichText = renderRichText(blok.richtext, {
 <div class="article">
   <div class="article-card">
     {
-      blok.articleContentImage?.filename && (
-        <img src={blok.articleContentImage?.filename} />
+      blok.contentImage?.filename && (
+        <img src={blok.contentImage?.filename} />
       )
     }
     <h1>{blok.headline}</h1>
