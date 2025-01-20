@@ -1,4 +1,3 @@
-
 declare namespace BASIC {
   export interface NavigationItems {
     link: {
@@ -16,8 +15,20 @@ declare namespace BASIC {
   }
 
   export interface LanguageProps {
-    language?: string,
-    langSwitch?: string,
-    slug?: string,
+    language?: string;
+    langSwitch?: string;
+    slug?: string;
+  }
+
+  export interface ImageProps {
+    image?: {
+      filename?: string;
+    };
+    mobileImage?: {
+      filename?: string;
+    };
+    contentImage?: {
+      filename?: string;
+    };
   }
 }

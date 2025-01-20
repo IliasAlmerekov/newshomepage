@@ -2,15 +2,9 @@
 import "../../../styles/style.css";
 import type { SbBlokData } from "@storyblok/astro";
 
-export interface StageProps {
-  stageImage: {
-    filename?: string; //ref types condition namings
-  };
+export interface StageProps extends BASIC.ImageProps {
   link: {
     cached_url?: string;
-  };
-  mobileStageImage: {
-    filename?: string;
   };
   headline?: string;
   text?: string;
@@ -26,14 +20,18 @@ const { blok } = Astro.props;
 ---
 
 <section class="home-article">
-  <img
-    class="image-web3-desktop"
-    src={blok.stageImage.filename}
-    alt={blok.alt}
-  />
+  {
+    blok.image?.filename && (
+      <img
+        class="image-web3-desktop"
+        src={blok.image?.filename}
+        alt={blok.alt}
+      />
+    )
+  }
   <img
     class="image-web3-mobile"
-    src={blok.mobileStageImage.filename}
+    src={blok.mobileImage?.filename}
     alt={blok.alt}
   />
   <div class="first-section">
@@ -42,7 +40,7 @@ const { blok } = Astro.props;
     </div>
     <div class="description">
       <p>{blok.text}</p>
-      <a href={blok.link?.cached_url}>{blok.buttonText}</a>
+      {blok.link?.cached_url && <a href={blok.link?.cached_url}>{blok.buttonText}</a>}
     </div>
   </div>
 </section>
