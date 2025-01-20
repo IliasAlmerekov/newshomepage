@@ -3,12 +3,12 @@ import "../../../styles/style.css";
 import { useStoryblokApi } from "@storyblok/astro";
 import { getTransLink } from "../../../utils/lang";
 
-export interface articleTeaserItemProps {
+export interface ArticleTeaserItemProps {
   content: {
-    image: {
+    image?: {
       filename: string;
     };
-    articleImage: {
+    contentImage?: {
       filename: string;
     };
     headline?: string;
@@ -18,7 +18,7 @@ export interface articleTeaserItemProps {
   slug?: string | undefined;
 }
 export interface article {
-  articleItem?: articleTeaserItemProps[];
+  articleItem?: ArticleTeaserItemProps[];
 }
 
 let articles = [];
@@ -40,7 +40,7 @@ articles = data.stories;
 
 <section class="popular-articles">
   {
-    articles.map((item: articleTeaserItemProps, index: number) => (
+    articles.map((item: ArticleTeaserItemProps, index: number) => (
       <a class="popular" href={getTransLink(language, `${item.slug}`)}>
         {item.content.image?.filename && (
           <img src={item.content.image.filename} alt={item.content.headline} />

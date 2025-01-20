@@ -2,7 +2,7 @@
 import { useStoryblokApi } from "@storyblok/astro";
 import "../../../styles/style.css";
 
-export interface TeaserItem {
+export interface TeaserItemProps {
   content: {
     headline?: string;
     text?: string;
@@ -19,7 +19,7 @@ let teaser = [];
 const storyblokApi = useStoryblokApi();
 
 const { data } = await storyblokApi.get(`cdn/stories`, {
-  content_type: "textBlock",
+  content_type: "teaser",
   version:
     (import.meta.env.STORYBLOK_IS_PREVIEW ||
       process.env.STORYBLOK_IS_PREVIEW) === "yes"
@@ -33,13 +33,13 @@ teaser = data.stories;
 <aside class="new-articles">
   <h2>{blok?.headline}</h2>
   {
-    teaser.map((item: TeaserItem, index: number) =>
+    teaser.map((item: TeaserItemProps, index: number) =>
       index < 3 ? (
         <div class="card">
           <h3>
-            {item.content?.link?.cached_url && (
+            {item.content.headline && (
               <a href={item.content?.link?.cached_url}>
-                {item.content.headline}
+                {item?.content.headline}
               </a>
             )}
           </h3>

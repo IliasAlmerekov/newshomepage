@@ -7,17 +7,14 @@ import {
 import "../styles/style.css";
 import { getTransLink } from "../utils/lang";
 
-export interface TextBlockProps {
-  image?: {
-    filename?: string;
-  };
+export interface TeaserProps extends BASIC.ImageProps{
   headline?: string;
   text?: string;
   richtext?: ISbRichtext | undefined;
 }
 
 export interface Props extends BASIC.LanguageProps {
-  blok: SbBlokData & TextBlockProps;
+  blok: SbBlokData & TeaserProps;
 }
 
 const { blok, language } = Astro.props;
