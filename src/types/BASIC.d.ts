@@ -21,14 +21,7 @@ declare namespace BASIC {
   }
 
   export interface ImageProps {
-    image?: {
-      filename?: string;
-    };
-    mobileImage?: {
-      filename?: string;
-    };
-    contentImage?: {
-      filename?: string;
-    };
+    alt?: string,
+    filename?: string;
   }
 }
