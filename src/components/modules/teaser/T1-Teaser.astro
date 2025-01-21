@@ -95,13 +95,15 @@ teaser = data.stories;
       color: var(--dark-grayish-blue);
       font-size: var(--fs-400);
     }
-
-    @media screen and (max-width: 475px) {
-      display: flex;
+  }
+  
+  @media screen and (max-width: 475px) {
+    .new-articles {  
+    display: flex;
       flex-direction: column;
       margin-top: 20px;
       gap: 15px;
-
+    }
       h2 {
         color: var(--soft-orange);
         font-weight: 600;
@@ -126,5 +128,4 @@ teaser = data.stories;
         font-size: 15px;
       }
     }
-  }
 </style>
