@@ -1,0 +1,34 @@
+---
+export interface ButtonProps {
+  label?: string;
+  href?: string;
+  link: {
+    cached_url?: string;
+  };
+}
+
+const { label, link, href } = Astro.props;
+---
+
+<a href={link?.cached_url || href}>{label}</a>
+
+<style>
+  a {
+    background-color: var(--soft-red);
+    color: var(--very-dark-blue);
+    padding: 14px 27px;
+    border: none;
+    cursor: pointer;
+    text-transform: uppercase;
+    letter-spacing: 4px;
+    font-size: 14px;
+    font-weight: var(--fw-semi-bold);
+    text-decoration: none;
+    margin-top: 40px;
+  }
+
+  a:hover {
+    background-color: var(--very-dark-blue);
+    color: var(--off-white);
+  }
+</style>

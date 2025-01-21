@@ -1,71 +1,74 @@
 ---
-import '../../../styles/style.css'
+import "../../../styles/style.css";
 import { useStoryblokApi } from "@storyblok/astro";
 
-const storyblokApi = useStoryblokApi()
+const storyblokApi = useStoryblokApi();
 
-const {data} =await storyblokApi.get(`cdn/stories/globals/f2footer`, {
+const { data } = await storyblokApi.get(`cdn/stories/globals/f2footer`, {
   version:
-  (import.meta.env.STORYBLOK_IS_PREVIEW || process.env.STORYBLOK_IS_PREVIEW) === "yes"
-  ? 'draft'
-  : 'published'
-})
+    (import.meta.env.STORYBLOK_IS_PREVIEW ||
+      process.env.STORYBLOK_IS_PREVIEW) === "yes"
+      ? "draft"
+      : "published",
+});
 
 const footerNavigation: BASIC.GlobalProps = data.story.content;
 ---
 
-
 <footer class="footer">
   <div class="footer-navigation">
-      <p>{footerNavigation.copyright}</p>
-      <nav class="footer-nav">
-        {footerNavigation.Navigation?.map((item: BASIC.NavigationItems) =>   <a href={item.link.cached_url}>{item.title}</a>)}
-      </nav>
-    </div>
-  </footer>
-  
-  <style>
+    <p>{footerNavigation.copyright}</p>
+    <nav class="footer-nav">
+      {
+        footerNavigation.Navigation?.map((item: BASIC.NavigationItems) => (
+          <a href={item.link.cached_url}>{item.title}</a>
+        ))
+      }
+    </nav>
+  </div>
+</footer>
 
+<style>
+  .footer {
+    margin-top: auto;
+  }
+
+  .footer-navigation {
+    background-color: var(--very-dark-blue);
+    color: var(--off-white);
+    padding: 1rem 2rem;
+    text-align: center;
+    justify-content: center;
+  }
+
+  .footer-nav {
+    margin-top: 1rem;
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+  }
+
+  .footer-nav a {
+    color: var(--soft-orange);
+    text-decoration: none;
+    font-weight: 700;
+    transition: color 0.3s ease;
+  }
+
+  .footer-nav a:hover {
+    color: var(--soft-red);
+  }
+
+  @media screen and (max-width: 678px) {
     .footer {
-      padding-top: 90px;
+      padding: 10px 0 10px 0;
     }
-
-    .footer-navigation {
-      background-color: var(--very-dark-blue);
-      color: var(--off-white);
-      padding: 1rem 2rem;
-      text-align: center;
-      justify-content: center;
+  }
+  @media screen and (max-width: 451px) {
+    .footer {
+      padding: 20px 0 20px 0;
     }
-
     .footer-nav {
-      margin-top: 1rem;
-      display: flex;
-      justify-content: center;
-      gap: 1.5rem;
-    }
-  
-    .footer-nav a {
-      color: var(--soft-orange);
-      text-decoration: none;
-      font-weight: 700;
-      transition: color 0.3s ease;
-    }
-  
-    .footer-nav a:hover {
-      color: var(--soft-red);
-    }
-
-    @media screen and (max-width: 678px) {
-      .footer {
-        padding: 10px 0 10px 0;
-      }
-    }
-      @media screen and (max-width: 451px) {
-      .footer {
-        padding: 20px 0 20px 0;
-      }
-      .footer-nav {
       display: flex;
       flex-direction: column;
       text-align: center;
@@ -73,6 +76,5 @@ const footerNavigation: BASIC.GlobalProps = data.story.content;
       margin-top: 1rem;
       gap: 1.5rem;
     }
-    }
-  </style>
-  
+  }
+</style>
