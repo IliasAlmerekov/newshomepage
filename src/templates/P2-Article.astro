@@ -8,7 +8,9 @@ import {
 import cloneDeep from "clone-deep";
 import "../styles/style.css";
 import { getTransLink } from "../utils/lang";
-export interface ArticleProps extends BASIC.ImageProps {
+import Button from "../components/elements/Button.astro";
+
+export interface ArticleProps {
   link: {
     cached_url?: string;
   };
@@ -16,6 +18,7 @@ export interface ArticleProps extends BASIC.ImageProps {
   text?: string;
   subline?: string;
   richtext?: ISbRichtext | undefined;
+  contentImage?: BASIC.ImageProps;
 }
 
 export interface Props extends BASIC.LanguageProps {
@@ -51,17 +54,13 @@ const renderedRichText = renderRichText(blok.richtext, {
 
 <div class="article">
   <div class="article-card">
-    {
-      blok.contentImage?.filename && (
-        <img src={blok.contentImage?.filename} />
-      )
-    }
+    {blok.contentImage?.filename && <img src={blok.contentImage?.filename} />}
     <h1>{blok.headline}</h1>
     <p>{blok.subline}</p>
     <p>{blok.text}</p>
     <div class="richtext-content" set:html={renderedRichText} />
   </div>
-  <div class="btn-back"><a href={getTransLink(language, "/")}>Back</a></div>
+  <Button href={getTransLink(language, "/")} label="Back" />
 </div>
 <style>
   .article {
@@ -84,12 +83,8 @@ const renderedRichText = renderRichText(blok.richtext, {
       transition: transform 0.2s ease-in-out;
     }
     .article-card:hover {
-      transform: translateY(-5px);
+      transform: translateY(-10px);
     }
-
-    .article-card img {
-    }
-
     h1 {
       font-size: var(--fs-800);
       font-weight: var(--fw-semi-bold);
@@ -104,7 +99,6 @@ const renderedRichText = renderRichText(blok.richtext, {
       margin: 20px;
       list-style: none;
     }
-
     .news-teaser {
       background-color: var(--very-dark-blue);
       color: var(--off-white);
@@ -149,26 +143,31 @@ const renderedRichText = renderRichText(blok.richtext, {
       background-size: contain;
       background-repeat: no-repeat;
     }
+  }
 
-    .btn-back {
-      margin-top: 40px;
-    }
-    .btn-back a {
-      background-color: var(--soft-red);
-      color: var(--very-dark-blue);
-      padding: 14px 27px;
-      border: none;
-      cursor: pointer;
-      text-transform: uppercase;
-      letter-spacing: 4px;
-      font-size: 14px;
-      font-weight: var(--fw-semi-bold);
-      text-decoration: none;
-    }
+  @media screen and (max-width: 768px) {
+    .article {
+      padding: 0;
+      margin: 10px;
+      height: auto;
 
-    .btn-back a:hover {
-      background-color: var(--very-dark-blue);
-      color: var(--off-white);
+      .article-card {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+      }
+      h1 {
+        font-size: var(--fs-600);
+      }
+      p {
+        font-weight: var(--fw-regular);
+        font-size: var(--fs-300);
+        color: var(--very-dark-blue;);
+        margin: 10px;
+        list-style: none;
+        padding: 10px;
+      }
     }
   }
 </style>

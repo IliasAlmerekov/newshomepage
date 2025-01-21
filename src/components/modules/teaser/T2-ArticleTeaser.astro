@@ -1,16 +1,12 @@
 ---
 import "../../../styles/style.css";
 import { useStoryblokApi } from "@storyblok/astro";
-import { getTransLink } from "../../../utils/lang";
+import Swiperjs from "../../swiper/Swiperjs";
 
 export interface ArticleTeaserItemProps {
   content: {
-    image?: {
-      filename: string;
-    };
-    contentImage?: {
-      filename: string;
-    };
+    image?: BASIC.ImageProps;
+    contentImage?: BASIC.ImageProps;
     headline?: string;
     text?: string;
     subline?: string;
@@ -38,89 +34,4 @@ const { data } = await storyblokApi.get(`cdn/stories`, {
 articles = data.stories;
 ---
 
-<section class="popular-articles">
-  {
-    articles.map((item: ArticleTeaserItemProps, index: number) => (
-      <a class="popular" href={getTransLink(language, `${item.slug}`)}>
-        {item.content.image?.filename && (
-          <img src={item.content.image.filename} alt={item.content.headline} />
-        )}
-        <div class="content">
-          <span>{(index + 1).toString().padStart(2, "0")}</span>
-          <h3>{item.content.headline}</h3>
-          <p>{item.content.subline}</p>
-        </div>
-      </a>
-    ))
-  }
-</section>
-<style>
-  .popular-articles {
-    display: flex;
-    grid-column: 1 / -1;
-    justify-content: center;
-    align-items: center;
-    padding: 0;
-    margin-top: 40px;
-    gap: 30px;
-  }
-
-  .popular {
-    display: flex;
-    justify-content: left;
-    align-items: center;
-    text-decoration: none;
-  }
-  .popular img {
-    height: 110px;
-    margin-right: 15px;
-  }
-  .content {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: flex-start;
-  }
-  .content span {
-    font-size: var(--fs-700);
-    font-weight: 700;
-    color: var(--soft-red);
-  }
-
-  .content h3 {
-    font-size: var(--fs-400);
-    margin: 0;
-    cursor: pointer;
-    color: var(--very-dark-blue);
-  }
-  .content h3:hover {
-    color: var(--soft-red);
-  }
-
-  .content p {
-    font-size: 14px;
-    color: var(--dark-grayish-blue);
-    line-height: 1.5;
-  }
-
-  @media screen and (max-width: 768px) {
-    .popular-articles {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: flex-start;
-      width: 100%;
-      padding: 0;
-    }
-    .popular {
-      display: flex;
-      align-items: center;
-    }
-    .popular a {
-      padding: 0;
-    }
-    .popular a img {
-      height: 100%;
-    }
-  }
-</style>
+<Swiperjs client:only articles={articles} language={language} />
