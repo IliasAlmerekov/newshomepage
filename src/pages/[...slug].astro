@@ -1,0 +1,73 @@
+---
+import { useStoryblokApi } from "@storyblok/astro";
+import StoryblokComponent from "@storyblok/astro/StoryblokComponent.astro";
+import Layout from "../layouts/Layout.astro";
+
+export async function getStaticPaths() {
+  let languages = ["en", "de"]; //define the supported languages
+  const storyblokApi = useStoryblokApi();
+  const links = await storyblokApi.getAll("cdn/links", {
+    version:
+      (import.meta.env.STORYBLOK_IS_PREVIEW ||
+        process.env.STORYBLOK_IS_PREVIEW) === "yes"
+        ? "draft"
+        : "published",
+  }); // get all links(pages) from storyblok in draft mode
+
+  let paths: any = []; //array for each page and languages
+  links.forEach((link: { slug: string }) => {
+    languages.forEach((language) => {
+      //if the page is home, set root path
+      let slug = link.slug === "home" ? undefined : link.slug;
+      //if the page is English, use only slug, else add the language before slug
+      let full_url = language === "en" ? slug : `${language}/${slug ?? ""}`;
+      //links for all languages
+      let langSwitch: Record<string, string> = {};
+      languages.forEach((lang) => {
+        langSwitch[lang] =
+          lang === "en" ? `/${slug ?? ""}` : `/${lang}/${slug ?? ""}`;
+      });
+
+      //add the URL and data to the paths list
+      paths.push({
+        //pass as props props:
+        props: { language, slug, langSwitch },
+        params: { slug: full_url || undefined },
+      });
+    });
+  });
+  return paths;
+}
+
+const { slug, language, langSwitch } = Astro.props;
+const storyblokApi = useStoryblokApi();
+
+function getSlug(slug: string | undefined) {
+  return slug ?? "home";
+}
+
+const { data } = await storyblokApi
+  .get(`cdn/stories/${getSlug(slug)}`, {
+    version:
+      (import.meta.env.STORYBLOK_IS_PREVIEW ||
+        process.env.STORYBLOK_IS_PREVIEW) === "yes"
+        ? "draft"
+        : "published",
+    language,
+  })
+  .catch((error) => {
+    console.error("Error", error);
+    return { data: null };
+  });
+
+if (!data) {
+  console.error(`Globals not found for slug: ${slug}, language: ${language}`);
+  return new Response("Globals not found", { status: 404 });
+}
+const title = data.story.name;
+const story = data.story ? data.story : null;
+---
+
+<Layout langSwitch={langSwitch} language={language} title={title}>
+  <StoryblokComponent language={language} blok={story.content} />
+</Layout>
