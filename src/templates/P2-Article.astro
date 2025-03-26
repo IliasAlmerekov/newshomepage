@@ -1,0 +1,183 @@
+---
+import {
+  renderRichText,
+  RichTextSchema,
+  type ISbRichtext,
+  type SbBlokData,
+} from "@storyblok/astro";
+import cloneDeep from "clone-deep";
+import "../styles/style.css";
+import { getTransLink } from "../utils/lang";
+import Button from "../components/elements/Button.astro";
+import { Image } from "astro:assets";
+
+export interface ArticleProps {
+  link: {
+    cached_url?: string;
+  };
+  headline?: string;
+  text?: string;
+  subline?: string;
+  richtext?: ISbRichtext | undefined;
+  contentImage?: BASIC.ImageProps;
+}
+
+export interface Props extends BASIC.LanguageProps {
+  blok: SbBlokData & ArticleProps;
+}
+
+const mySchema = cloneDeep(RichTextSchema);
+const { blok, language } = Astro.props;
+
+const renderedRichText = renderRichText(blok.richtext, {
+  schema: mySchema,
+  resolver: (component, blok) => {
+    switch (component) {
+      case "newsTeaser":
+        return `
+        <div class="news-teaser">
+        <h2>${blok.headline}</h2>
+        ${blok.newsItems
+          .map(
+            (item: ArticleProps) =>
+              `<h3><a href=${item.link.cached_url}>${item.headline}</a></h3>
+        <p>${item.text}</p>
+        `
+          )
+          .join("")}
+        </div>`;
+      default:
+        return `Component ${blok} not found`;
+    }
+  },
+});
+---
+
+<div class="article">
+  <div class="article-card">
+    {
+      blok.contentImage?.filename && (
+        <Image
+          src={blok.contentImage?.filename}
+          alt={blok.contentImage?.filename}
+          width={600}
+          height={500}
+        />
+      )
+    }
+    <h1>{blok.headline}</h1>
+    <p>{blok.subline}</p>
+    <p>{blok.text}</p>
+    <div class="richtext-content" set:html={renderedRichText} />
+  </div>
+  <Button href={getTransLink(language, "/")} label="Back" />
+</div>
+<style>
+  .article {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    max-width: 800px;
+    padding: 50px;
+    margin: auto;
+    height: auto;
+    background-color: var(--off-white);
+
+    .article-card {
+      margin-top: 40px;
+      background-color: var(--off-white);
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      overflow: hidden;
+      transition: transform 0.2s ease-in-out;
+    }
+    .article-card:hover {
+      transform: translateY(-10px);
+    }
+    h1 {
+      font-size: var(--fs-800);
+      font-weight: var(--fw-semi-bold);
+      color: var(--very-dark-blue);
+      margin: 30px;
+    }
+
+    p {
+      font-weight: var(--fw-regular);
+      font-size: var(--fs-500);
+      color: var(--very-dark-blue;);
+      margin: 20px;
+      list-style: none;
+    }
+    .news-teaser {
+      background-color: var(--very-dark-blue);
+      color: var(--off-white);
+      padding: 20px;
+    }
+    .news-teaser p {
+      color: var(--dark-grayish-blue);
+      font-size: var(--fs-400);
+      margin: 0;
+    }
+    .richtext-content h2 {
+      color: var(--soft-orange);
+      font-weight: 600;
+      font-size: var(--fs-800);
+      padding: 0;
+      margin: 0;
+    }
+    .news-teaser h3 a {
+      font-size: var(--fs-500);
+      font-weight: bold;
+      color: var(--off-white);
+      cursor: pointer;
+      text-decoration: none;
+    }
+    .news-teaser h3 a:hover {
+      font-size: var(--fs-500);
+      font-weight: bold;
+      color: var(--soft-orange);
+    }
+    .richtext-content ul {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+    .richtext-content li p::before {
+      content: "";
+      display: inline-block;
+      width: 20px;
+      height: 20px;
+      margin-right: 10px;
+      background-image: url("/images/laptop.svg");
+      background-size: contain;
+      background-repeat: no-repeat;
+    }
+  }
+
+  @media screen and (max-width: 768px) {
+    .article {
+      padding: 0;
+      margin: 10px;
+      height: auto;
+
+      .article-card {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+      }
+      h1 {
+        font-size: var(--fs-600);
+      }
+      p {
+        font-weight: var(--fw-regular);
+        font-size: var(--fs-300);
+        color: var(--very-dark-blue;);
+        margin: 10px;
+        list-style: none;
+        padding: 10px;
+      }
+    }
+  }
+</style>
