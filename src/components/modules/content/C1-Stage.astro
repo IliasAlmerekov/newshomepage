@@ -1,0 +1,130 @@
+---
+import "../../../styles/style.css";
+import type { SbBlokData } from "@storyblok/astro";
+import Button from "../../elements/Button.astro";
+
+export interface StageProps {
+  link: {
+    cached_url?: string;
+  };
+  headline?: string;
+  text?: string;
+  alt?: string;
+  buttonText?: string;
+  image?: BASIC.ImageProps;
+  mobileImage?: BASIC.ImageProps;
+}
+
+export interface Props {
+  blok: SbBlokData & StageProps;
+}
+
+const { blok } = Astro.props;
+---
+
+<section class="home-article">
+  {
+    blok.image?.filename && (
+      <img
+        class="image-web3-desktop"
+        src={blok.image?.filename}
+        alt={blok.image?.alt}
+      />
+    )
+  }
+  {
+    blok.mobileImage?.filename && (
+      <img
+        class="image-web3-mobile"
+        src={blok.mobileImage?.filename}
+        alt={blok.mobileImage?.alt}
+      />
+    )
+  }
+  <div class="first-section">
+    <div class="intro">
+      <h1>{blok.headline}</h1>
+    </div>
+    <div class="description">
+      <p>{blok.text}</p>
+      <Button href={blok?.link.cached_url} label={blok.buttonText} />
+    </div>
+  </div>
+
+  <style>
+    .home-article {
+      display: grid;
+      grid-column: 1 / span 8;
+    }
+    .first-section {
+      display: grid;
+      grid-template-columns: 1.1fr 1fr;
+    }
+
+    .intro h1 {
+      margin-top: 20px;
+      padding: 0;
+      font-size: var(--fs-900);
+      font-weight: 800;
+    }
+
+    .description p {
+      font-size: var(--fs-100);
+      color: var(--dark-grayish-blue);
+      line-height: 1.6;
+      font-family: var(--ff-base);
+      margin-bottom: 40px;
+    }
+    @media screen and (min-width: 678px) {
+      .home-article .image-web3-mobile {
+        display: none;
+      }
+    }
+
+    @media screen and (max-width: 300px) {
+      .home-article .image-web3-mobile {
+        display: none;
+      }
+    }
+
+    @media screen and (max-width: 678px) {
+      .home-article .image-web3-desktop {
+        display: none;
+      }
+      .home-article {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        padding: 0;
+      }
+      .first-section {
+        display: flex;
+        flex-direction: column;
+      }
+      .intro h1 {
+        font-size: var(--fs-800);
+        text-wrap: wrap;
+        margin-bottom: 5px;
+        font-weight: var(--fw-bold);
+      }
+      .description p {
+        text-wrap: wrap;
+        font-size: var(--fs-100);
+        color: var(--dark-grayish-blue);
+      }
+      .description button {
+        background-color: var(--soft-red);
+        color: var(--very-dark-blue);
+        margin-top: 10px;
+        padding: 14px 25px;
+        cursor: pointer;
+        text-transform: uppercase;
+        letter-spacing: 3px;
+        font-size: 12px;
+        font-weight: var(--fw-semi-bold);
+        text-decoration: none;
+      }
+    }
+  </style>
+</section>

@@ -9,7 +9,6 @@ import cloneDeep from "clone-deep";
 import "../styles/style.css";
 import { getTransLink } from "../utils/lang";
 import Button from "../components/elements/Button.astro";
-import { Image } from "astro:assets";
 
 export interface ArticleProps {
   link: {
@@ -55,16 +54,7 @@ const renderedRichText = renderRichText(blok.richtext, {
 
 <div class="article">
   <div class="article-card">
-    {
-      blok.contentImage?.filename && (
-        <Image
-          src={blok.contentImage?.filename}
-          alt={blok.contentImage?.filename}
-          width={600}
-          height={500}
-        />
-      )
-    }
+    {blok.contentImage?.filename && <img src={blok.contentImage?.filename} />}
     <h1>{blok.headline}</h1>
     <p>{blok.subline}</p>
     <p>{blok.text}</p>
