@@ -1,0 +1,192 @@
+---
+import { useStoryblokApi } from "@storyblok/astro";
+import { languages, getTransLink } from "../../../utils/lang";
+import "../../../styles/style.css";
+
+const { language, langSwitch } = Astro.props;
+
+const storyblokApi = useStoryblokApi();
+
+const { data } = await storyblokApi.get(`cdn/stories/globals/f1header`, {
+  version:
+    (import.meta.env.STORYBLOK_IS_PREVIEW ||
+      process.env.STORYBLOK_IS_PREVIEW) === "yes"
+      ? "draft"
+      : "published",
+});
+
+const headerNavigation: BASIC.GlobalProps = data.story.content;
+---
+
+<header>
+  <div class="logo">
+    <a href={getTransLink(language, "/")} class="logo">
+      {
+        headerNavigation?.logo?.filename && (
+          <img
+            src={headerNavigation?.logo.filename}
+            alt={headerNavigation.alt}
+          />
+        )
+      }
+    </a>
+  </div>
+
+  <input type="checkbox" id="menu-sidebar" />
+  <div class="overlay"></div>
+  <label for="menu-sidebar" id="burger">
+    <div></div>
+    <div></div>
+    <div></div>
+  </label>
+  <nav class="sidebarMenu">
+    <ul>
+      {
+        headerNavigation.Navigation?.map((item: BASIC.NavigationItems) => (
+          <li>
+            <a
+              href={getTransLink(
+                language,
+                `${item.link?.cached_url === "home" ? "/" : item.link?.cached_url}`
+              )}
+            >
+              {item.title}
+            </a>
+          </li>
+        ))
+      }
+      {
+        languages.map((lang) => (
+          <a class="language" href={langSwitch?.[lang] || "#"}>
+            {lang}
+          </a>
+        ))
+      }
+    </ul>
+  </nav>
+</header>
+
+<style>
+  header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 50px;
+  }
+
+  nav ul {
+    display: flex;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    gap: 3rem;
+    cursor: pointer;
+  }
+  nav ul li a {
+    color: var(--dark-grayish-blue);
+    text-decoration: none;
+    font-size: 14px;
+  }
+  nav ul li a:hover {
+    color: var(--soft-orange);
+  }
+
+  #menu-sidebar {
+    display: none;
+  }
+  nav .language {
+    gap: 1rem;
+  }
+  .language {
+    text-decoration: none;
+    color: var(--dark-grayish-blue);
+    font-weight: bold;
+    font-size: 14px;
+  }
+
+  .language:hover {
+    color: var(--soft-orange);
+  }
+
+  @media screen and (max-width: 590px) {
+    .sidebarMenu {
+      background: var(--off-white);
+      width: 15rem;
+      height: 100vh;
+      position: fixed;
+      right: 0;
+      top: 0;
+      transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+      transform: translateX(50rem);
+      z-index: 2;
+      transition: transform 0.5s ease;
+    }
+    .overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background-color: rgba(0, 0, 0, 0);
+      transition: background-color 0.5s ease;
+      z-index: 1;
+      pointer-events: none;
+    }
+    #menu-sidebar:checked ~ .overlay {
+      background-color: rgba(0, 0, 0, 0.5);
+      pointer-events: auto;
+    }
+
+    #menu-sidebar:checked ~ .sidebarMenu {
+      transform: translateX(0rem);
+    }
+
+    .sidebarMenu ul {
+      flex-direction: column;
+      align-items: flex-start;
+      padding-left: 25px;
+      margin: 180px 0 0;
+      gap: 20px;
+      cursor: pointer;
+    }
+    nav ul li a {
+      color: var(--very-dark-blue);
+      font-weight: var(--fw-regular);
+      text-decoration: none;
+      font-size: 18px;
+    }
+    #menu-sidebar:checked ~ .sidebarMenu {
+      transform: translateX(0rem);
+    }
+    #burger {
+      position: absolute;
+      cursor: pointer;
+      width: 2rem;
+      height: 1.2rem;
+      right: 1.5rem;
+      top: 3rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      margin-top: 10px;
+    }
+    #burger > div {
+      height: 2.5px;
+      background-color: var(--very-dark-blue);
+      transition: 0.5s;
+      z-index: 999;
+    }
+    #menu-sidebar:checked ~ #burger > div {
+      background-color: var(--very-dark-blue);
+    }
+    #menu-sidebar:checked ~ #burger > div:nth-child(1) {
+      transform: translateY(1px) rotate(45deg);
+    }
+    #menu-sidebar:checked ~ #burger > div:nth-child(2) {
+      opacity: 0;
+    }
+    #menu-sidebar:checked ~ #burger > div:nth-child(3) {
+      transform: translateY(-15px) rotate(-45deg);
+    }
+  }
+</style>

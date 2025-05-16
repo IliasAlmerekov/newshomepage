@@ -1,0 +1,37 @@
+---
+import "../../../styles/style.css";
+import { useStoryblokApi } from "@storyblok/astro";
+import Swiperjs from "../../swiper/Swiperjs";
+
+export interface ArticleTeaserItemProps {
+  content: {
+    image?: BASIC.ImageProps;
+    contentImage?: BASIC.ImageProps;
+    headline?: string;
+    text?: string;
+    subline?: string;
+  };
+  slug?: string | undefined;
+}
+export interface article {
+  articleItem?: ArticleTeaserItemProps[];
+}
+
+let articles = [];
+
+const { language } = Astro.props;
+const storyblokApi = useStoryblokApi();
+
+const { data } = await storyblokApi.get(`cdn/stories`, {
+  content_type: "article",
+  version:
+    (import.meta.env.STORYBLOK_IS_PREVIEW ||
+      process.env.STORYBLOK_IS_PREVIEW) === "yes"
+      ? "draft"
+      : "published",
+  language,
+});
+articles = data.stories;
+---
+
+<Swiperjs client:only articles={articles} language={language} />

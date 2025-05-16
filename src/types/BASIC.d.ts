@@ -22,9 +22,6 @@ declare namespace BASIC {
 
   export interface ImageProps {
     alt?: string,
-    src?: string,
-    filename?: string,
-    width?: string,
-    height?: string,
+    filename?: string;
   }
 }
