@@ -31,7 +31,7 @@ Users should be able to:
 
 ### Links
 
-- Live Site URL: [Add live site URL here](https://newshomepage-gamma.vercel.app/)
+- Live Site URL: [newshomepage](https://newshomepage-gamma.vercel.app/)
 
 ## My process
 
@@ -58,8 +58,8 @@ I want to improve my accessibility knowledge and ensure my projects meet WCAG st
 
 ## Author
 
-- GitHub - [@yourusername](https://github.com/yourusername)
-- Frontend Mentor - [@yourusername](https://www.frontendmentor.io/profile/yourusername)
+- GitHub - [@IliasAlmerekov](https://github.com/IliasAlmerekov)
+- Frontend Mentor - [@IliasAlmerekov](https://www.frontendmentor.io/profile/IliasAlmerekov)
 
 ## Common Commit Types (Conventional Commits)
 
