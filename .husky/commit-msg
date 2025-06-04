@@ -1,1 +1,2 @@
+$ cat .husky/commit-msg
 npm run commitlint "$1"
