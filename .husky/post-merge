@@ -1,2 +1,2 @@
-$ cat .husky/post-merge
+#!/bin/sh
 npm install
