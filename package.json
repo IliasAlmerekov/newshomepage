@@ -12,7 +12,9 @@
     "stylelint:fix": "stylelint **/*.css --fix",
     "prepare": "husky",
     "husky": "npm run stylelint && npm run eslint",
-    "commitlint": "commitlint --edit"
+    "commitlint": "commitlint --edit",
+    "test": "vitest",
+    "lint": "npm run eslint && npm run stylelint"
   },
   "dependencies": {
     "@astrojs/node": "^9.0.1",
@@ -59,7 +61,10 @@
     "prettier": "^3.5.3",
     "stylelint": "^16.19.1",
     "stylelint-config-standard": "^38.0.0",
-    "typescript": "^5.8.3"
+    "typescript": "^5.8.3",
+    "vitest": "^1.4.0",
+    "@astrojs/test": "^2.8.0",
+    "@testing-library/react": "^14.2.2"
   },
   "lint-staged": {
     "*.{js,jsx,ts,tsx}": [
