@@ -1,0 +1,13 @@
+{
+  "extends": ["stylelint-config-standard"],
+  "rules": {
+    "no-empty-source": null,
+    "selector-class-pattern": [
+      "^[a-z][a-zA-Z0-9]+$",
+      {
+        "message": "Selector should be written in lowerCamelCase",
+        "resolveNestedSelectors": true
+      }
+    ]
+  }
+}
