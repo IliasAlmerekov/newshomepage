@@ -1,0 +1,6 @@
+echo "🔍 Checking the code before committing..."
+
+npx lint-staged || {
+  echo "💀❌ Lint-staged failed. Commit aborted.";
+  exit 1;
+}
