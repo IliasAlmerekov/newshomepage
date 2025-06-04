@@ -1,4 +1,4 @@
-$ cat .husky/pre-commit
+#!/bin/sh
 echo "🔍 Checking the code before committing..."
 
 npx lint-staged || {
