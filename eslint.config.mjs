@@ -3,9 +3,24 @@ import tseslint from "typescript-eslint";
 import react from "eslint-plugin-react";
 import reactHooks from "eslint-plugin-react-hooks";
 import jsxA11y from "eslint-plugin-jsx-a11y";
+import astro from "eslint-plugin-astro";
+import astroParser from "astro-eslint-parser";
 
 export default [
   js.configs.recommended,
+  astro.configs["flat/recommended"],
+  {
+    files: ["**/*.astro"],
+    languageOptions: {
+      parser: astroParser,
+      parserOptions: {
+        parser: tseslint.parser,
+      },
+    },
+    plugins: {
+      astro,
+    },
+  },
   ...tseslint.configs.recommended,
   {
     files: ["**/*.ts", "**/*.tsx"],
