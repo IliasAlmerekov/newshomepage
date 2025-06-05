@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { getTransLink } from "../../utils/lang";
+import { getTransLink } from "../../system/utils/lang";
 
 import "swiper/css";
 import "swiper/css/effect-cube";

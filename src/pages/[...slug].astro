@@ -1,8 +1,8 @@
 ---
 import { useStoryblokApi } from "@storyblok/astro";
-import StoryblokComponent from "@storyblok/astro";
 import Layout from "../layouts/Layout.astro";
 import { languages } from "../system/utils/lang";
+import StoryblokComponent from "@storyblok/astro/StoryblokComponent.astro";
 export async function getStaticPaths() {
   const storyblokApi = useStoryblokApi();
   const links = await storyblokApi.getAll("cdn/links", {
@@ -68,5 +68,5 @@ const story = data.story ? data.story : null;
 ---
 
 <Layout langSwitch={langSwitch} language={language} title={title}>
-  <StoryblokComponent language={language} blok={story.content} />
+  <StoryblokComponent  blok={story.content} />
 </Layout>
