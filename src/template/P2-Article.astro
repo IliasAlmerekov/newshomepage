@@ -7,7 +7,7 @@ import {
 } from "@storyblok/astro";
 import cloneDeep from "clone-deep";
 import "../styles/style.css";
-import { getTransLink } from "../utils/lang";
+import { getTransLink } from "../system/utils/lang";
 import Button from "../components/elements/Button.astro";
 
 export interface ArticleProps {
@@ -95,7 +95,7 @@ const renderedRichText = renderRichText(blok.richtext, {
     p {
       font-weight: var(--fw-regular);
       font-size: var(--fs-500);
-      color: var(--very-dark-blue;);
+      color: var(--very-dark-blue);
       margin: 20px;
       list-style: none;
     }
@@ -163,7 +163,7 @@ const renderedRichText = renderRichText(blok.richtext, {
       p {
         font-weight: var(--fw-regular);
         font-size: var(--fs-300);
-        color: var(--very-dark-blue;);
+        color: var(--very-dark-blue);
         margin: 10px;
         list-style: none;
         padding: 10px;
