@@ -5,7 +5,7 @@ import {
   type SbBlokData,
 } from "@storyblok/astro";
 import "../styles/style.css";
-import { getTransLink } from "../utils/lang";
+import { getTransLink } from "../system/utils/lang";
 import Button from "../components/elements/Button.astro";
 
 export interface TeaserProps {
@@ -67,7 +67,7 @@ const renderedRichText = renderRichText(blok.richtext);
     p {
       font-weight: var(--fw-regular);
       font-size: var(--fs-500);
-      color: var(--very-dark-blue;);
+      color: var(--very-dark-blue);
       margin: 30px;
       list-style: none;
     }
