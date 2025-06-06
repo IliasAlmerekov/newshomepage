@@ -16,6 +16,11 @@ export default [
       parser: astroParser,
       parserOptions: {
         parser: tseslint.parser,
+        ecmaVersion: "latest",
+        sourceType: "module",
+        ecmaFeatures: {
+          topLevelAwait: true,
+        },
       },
     },
     plugins: {
