@@ -75,22 +75,18 @@ const { blok } = Astro.props;
       font-family: var(--ff-base);
       margin-bottom: 40px;
     }
-    @media screen and (min-width: 678px) {
+
+    @media screen and (min-width: 476px) {
       .home-article .image-web3-mobile {
         display: none;
       }
     }
 
-    @media screen and (max-width: 300px) {
-      .home-article .image-web3-mobile {
-        display: none;
-      }
-    }
-
-    @media screen and (max-width: 678px) {
+    @media screen and (max-width: 477px) {
       .home-article .image-web3-desktop {
         display: none;
       }
+
       .home-article {
         display: flex;
         flex-direction: column;
@@ -103,7 +99,7 @@ const { blok } = Astro.props;
         flex-direction: column;
       }
       .intro h1 {
-        font-size: var(--fs-800);
+        font-size: var(--fs-700);
         text-wrap: wrap;
         margin-bottom: 5px;
         font-weight: var(--fw-bold);
@@ -124,6 +120,21 @@ const { blok } = Astro.props;
         font-size: 12px;
         font-weight: var(--fw-semi-bold);
         text-decoration: none;
+      }
+    }
+
+    @media screen and (min-width: 476px) and (max-width: 1024px) {
+      .first-section {
+        grid-template-columns: 1fr 1fr;
+      }
+      .intro h1 {
+        font-size: var(--fs-800);
+      }
+    }
+
+    @media screen and (min-width: 1025px) {
+      .first-section {
+        grid-template-columns: 1.1fr 1fr;
       }
     }
   </style>

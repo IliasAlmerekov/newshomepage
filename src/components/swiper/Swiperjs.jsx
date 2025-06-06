@@ -8,14 +8,16 @@ import "swiper/css/free-mode";
 import "swiper/css/pagination";
 import "./style.css";
 
-import { FreeMode, Pagination, EffectCube } from "swiper/modules";
+import { FreeMode, Pagination, Navigation } from "swiper/modules";
 
 export default function Swiperjs({ articles, language }) {
-  const [isSmallScreen, setIsSmallScreen] = useState(window.innerWidth <= 590);
+  const [screenWidth, setScreenWidth] = useState(
+    typeof window !== "undefined" ? window.innerWidth : 0,
+  );
 
   useEffect(() => {
     const handleResize = () => {
-      setIsSmallScreen(window.innerWidth <= 590);
+      setScreenWidth(window.innerWidth);
     };
 
     window.addEventListener("resize", handleResize);
@@ -25,24 +27,20 @@ export default function Swiperjs({ articles, language }) {
     };
   }, []);
 
+  const isMobile = screenWidth <= 590;
+  const isTablet = screenWidth > 590 && screenWidth <= 1024;
+
   return (
     <>
       <Swiper
-        effect={isSmallScreen ? "cube" : undefined}
-        grabCursor={true}
-        cubeEffect={{
-          shadow: isSmallScreen ? true : undefined,
-          slideShadows: isSmallScreen ? true : undefined,
-          shadowOffset: isSmallScreen ? 20 : undefined,
-          shadowScale: isSmallScreen ? 0.94 : undefined,
-        }}
-        slidesPerView={isSmallScreen ? undefined : 3}
-        spaceBetween={isSmallScreen ? undefined : 30}
+        slidesPerView={isMobile ? 1 : isTablet ? 2 : 3}
+        spaceBetween={isMobile || isTablet ? 20 : 30}
         freeMode={true}
         pagination={{
           clickable: true,
         }}
-        modules={[FreeMode, Pagination, EffectCube]}
+        navigation={true}
+        modules={[FreeMode, Pagination, Navigation]}
         className="mySwiper"
       >
         {articles.map((item, index) => (

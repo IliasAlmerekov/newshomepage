@@ -97,3 +97,10 @@
     line-height: 1.5;
   }
 }
+
+@media screen and (width > 590px) and (width <= 1024px) {
+  .popular img {
+    height: 180px;
+    width: 150px;
+  }
+}
