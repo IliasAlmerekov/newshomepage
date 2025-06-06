@@ -45,14 +45,15 @@ Users should be able to:
 
 ## Setup
 
-1. Clone the repository and install dependencies:
+1. Ensure you are using **Node.js 20** or newer.
+2. Clone the repository and install dependencies:
 
    ```bash
    npm install
    ```
 
-2. Create an `.env` file based on the variables described in [Environment variables](#environment-variables).
-3. Start the development server:
+3. Create an `.env` file based on the variables described in [Environment variables](#environment-variables).
+4. Start the development server:
 
    ```bash
    npm run dev
