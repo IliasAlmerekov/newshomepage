@@ -1,34 +1,33 @@
 ---
-import { useStoryblokApi } from "@storyblok/astro";
-import "../../../../css/style.css";
+import { useStoryblokApi } from '@storyblok/astro'
+import '../../../../css/style.css'
 
 export interface TeaserItemProps {
   content: {
-    headline?: string;
-    text?: string;
+    headline?: string
+    text?: string
     link?: {
-      cached_url?: string;
-    };
-  };
+      cached_url?: string
+    }
+  }
 }
 
-const { language, blok } = Astro.props;
+const { language, blok } = Astro.props
 
-let teaser = [];
+let teaser = []
 
-const storyblokApi = useStoryblokApi();
+const storyblokApi = useStoryblokApi()
 
 const { data } = await storyblokApi.get(`cdn/stories`, {
-  content_type: "teaser",
+  content_type: 'teaser',
   version:
-    (import.meta.env.STORYBLOK_IS_PREVIEW ||
-      process.env.STORYBLOK_IS_PREVIEW) === "yes"
-      ? "draft"
-      : "published",
+    (import.meta.env.STORYBLOK_IS_PREVIEW || process.env.STORYBLOK_IS_PREVIEW) === 'yes'
+      ? 'draft'
+      : 'published',
   language,
-});
+})
 
-teaser = data.stories;
+teaser = data.stories
 ---
 
 <aside class="new-articles">
@@ -39,16 +38,14 @@ teaser = data.stories;
         <div class="card">
           <h3>
             {item.content.headline && (
-              <a href={item.content?.link?.cached_url}>
-                {item?.content.headline}
-              </a>
+              <a href={item.content?.link?.cached_url}>{item?.content.headline}</a>
             )}
           </h3>
           <p>{item.content.text}</p>
         </div>
       ) : (
-        ""
-      )
+        ''
+      ),
     )
   }
 </aside>
@@ -87,24 +84,27 @@ teaser = data.stories;
       cursor: pointer;
       text-decoration: none;
     }
+
     h3 a:hover {
       font-size: var(--fs-500);
       font-weight: bold;
       color: var(--soft-orange);
     }
+
     p {
       color: var(--dark-grayish-blue);
       font-size: var(--fs-400);
     }
   }
 
-  @media screen and (max-width: 475px) {
+  @media screen and (width <= 475px) {
     .new-articles {
       display: flex;
       flex-direction: column;
       margin-top: 20px;
       gap: 15px;
     }
+
     h2 {
       color: var(--soft-orange);
       font-weight: 600;
@@ -112,6 +112,7 @@ teaser = data.stories;
       padding: 0;
       margin: 0;
     }
+
     h3 a {
       font-size: var(--fs-500);
       font-weight: bold;
@@ -119,30 +120,34 @@ teaser = data.stories;
       cursor: pointer;
       text-decoration: none;
     }
+
     h3 a:hover {
       font-size: var(--fs-500);
       font-weight: bold;
       color: var(--soft-orange);
     }
+
     .card p {
       color: var(--dark-grayish-blue);
       font-size: 15px;
     }
   }
 
-  @media screen and (min-width: 476px) and (max-width: 1024px) {
+  @media screen and (width >= 476px) and (width <= 1024px) {
     .new-articles {
       padding: 20px;
     }
+
     h2 {
       font-size: var(--fs-700);
     }
+
     .card p {
       font-size: 15px;
     }
   }
 
-  @media screen and (min-width: 1025px) {
+  @media screen and (width >= 1025px) {
     .new-articles {
       padding: 20px;
     }
