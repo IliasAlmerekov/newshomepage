@@ -1,5 +1,5 @@
 {
-  "extends": ["stylelint-config-standard"],
+  "extends": ["stylelint-config-standard", "stylelint-config-astro"],
   "rules": {
     "no-empty-source": null,
     "selector-class-pattern": [
