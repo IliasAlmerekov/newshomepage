@@ -76,9 +76,11 @@
   "lint-staged": {
     "*.{js,jsx,ts,tsx}": [
       "prettier --write",
+      "eslint",
       "eslint --fix"
     ],
     "*.{css, astro}": [
+      "stylelint",
       "stylelint --fix",
       "prettier --write"
     ],
