@@ -13,7 +13,7 @@
     "test": "node --test",
     "eslint": "eslint ./src",
     "stylelint": "stylelint **/*.{css,astro}",
-    "stylelint:fix": "stylelint **/*.css --fix",
+    "stylelint:fix": "stylelint **/*.{css, astro} --fix",
     "prepare": "husky",
     "husky": "npm run stylelint && npm run eslint",
     "commitlint": "commitlint --edit"
@@ -77,7 +77,7 @@
       "prettier --write",
       "eslint --fix"
     ],
-    "*.css": [
+    "*.{css, astro}": [
       "stylelint --fix",
       "prettier --write"
     ],
