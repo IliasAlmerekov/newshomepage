@@ -6,6 +6,7 @@ import 'swiper/css'
 import 'swiper/css/effect-cube'
 import 'swiper/css/free-mode'
 import 'swiper/css/pagination'
+import 'swiper/css/navigation'
 import './style.css'
 
 import { FreeMode, Pagination, Navigation } from 'swiper/modules'
@@ -28,8 +29,8 @@ export default function Swiperjs({ articles, language }) {
     }
   }, [])
 
-  const isMobile = screenWidth <= 590
-  const isTablet = screenWidth > 590 && screenWidth <= 1024
+  const isMobile = screenWidth <= 768
+  const isTablet = screenWidth > 768 && screenWidth <= 1024
 
   return (
     <>
@@ -46,10 +47,14 @@ export default function Swiperjs({ articles, language }) {
       >
         {articles.map((item, index) => (
           <SwiperSlide>
+            {item.content.image?.filename && (
+              <img
+                className="card-image"
+                src={item.content.image.filename}
+                alt={item.content.image.filename}
+              />
+            )}
             <a className="popular" href={getTransLink(language, item.slug)}>
-              {item.content.image?.filename && (
-                <img src={item.content.image.filename} alt={item.content.image.filename} />
-              )}
               <div className="content">
                 <span>{(index + 1).toString().padStart(2, '0')}</span>
                 <h3>{item.content.headline}</h3>
