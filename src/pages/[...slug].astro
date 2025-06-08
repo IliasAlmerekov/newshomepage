@@ -30,7 +30,7 @@ export async function getStaticPaths() {
       paths.push({
         //pass as props props:
         props: { language, slug, langSwitch },
-        params: { slug: full_url || undefined },
+        params: { slug: full_url },
       })
     })
   })
@@ -66,5 +66,5 @@ const story = data.story ? data.story : null
 ---
 
 <Layout langSwitch={langSwitch} language={language} title={title}>
-  <StoryblokComponent blok={story.content} />
+  <StoryblokComponent blok={story.content} language={language} />
 </Layout>

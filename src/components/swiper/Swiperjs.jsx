@@ -14,6 +14,7 @@ export default function Swiperjs({ articles, language }) {
   const [screenWidth, setScreenWidth] = useState(
     typeof window !== 'undefined' ? window.innerWidth : 0,
   )
+  console.log(articles.slug)
 
   useEffect(() => {
     const handleResize = () => {
