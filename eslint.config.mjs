@@ -1,4 +1,3 @@
-// eslint.config.mjs
 import js from "@eslint/js";
 import tseslint from "typescript-eslint";
 import react from "eslint-plugin-react";
@@ -8,8 +7,27 @@ import astro from "eslint-plugin-astro";
 import astroParser from "astro-eslint-parser";
 
 export default [
+  {
+    ignores: [".astro/**/*", "dist/**/*", "node_modules/**/*"],
+  },
+  {
+    languageOptions: {
+      globals: {
+        process: "readonly",
+        Response: "readonly",
+        Request: "readonly",
+        Headers: "readonly",
+        fetch: "readonly",
+        document: "readonly",
+        window: "readonly",
+        console: "readonly",
+      },
+    },
+  },
+
   js.configs.recommended,
-  ...(astro.configs["flat/recommended"] || []),
+
+  // Astro
   {
     files: ["**/*.astro"],
     languageOptions: {
@@ -19,6 +37,7 @@ export default [
         ecmaVersion: "latest",
         sourceType: "module",
         ecmaFeatures: {
+          jsx: true,
           topLevelAwait: true,
         },
       },
@@ -26,10 +45,14 @@ export default [
     plugins: {
       astro,
     },
+    rules: {
+      ...astro.configs.recommended.rules,
+    },
   },
-  ...(tseslint.configs.recommended || []),
+
+  // TypeScript + React
   {
-    files: ["**/*.ts", "**/*.tsx"],
+    files: ["**/*.{ts,tsx}"],
     languageOptions: {
       parser: tseslint.parser,
       parserOptions: {
@@ -39,23 +62,18 @@ export default [
           jsx: true,
         },
       },
-      globals: {
-        document: true,
-        window: true,
-        console: true,
-        HTMLElement: true,
-        _IS_DEV__: true,
-      },
     },
     plugins: {
+      "@typescript-eslint": tseslint.plugin,
       react,
       "react-hooks": reactHooks,
       "jsx-a11y": jsxA11y,
     },
     rules: {
-      ...(react.configs?.recommended?.rules || {}),
-      ...(reactHooks.configs?.recommended?.rules || {}),
-      ...(jsxA11y.configs?.recommended?.rules || {}),
+      ...(tseslint.configs.recommended.rules ?? {}),
+      ...(react.configs.recommended.rules ?? {}),
+      ...(reactHooks.configs.recommended.rules ?? {}),
+      ...(jsxA11y.configs.recommended.rules ?? {}),
       "@typescript-eslint/no-explicit-any": "error",
       "react/react-in-jsx-scope": "off",
       "react/jsx-uses-react": "off",

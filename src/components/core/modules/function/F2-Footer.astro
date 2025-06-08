@@ -1,18 +1,18 @@
 ---
-import "../../../../css/style.css";
-import { useStoryblokApi } from "@storyblok/astro";
+import '../../../../css/style.css'
+import { useStoryblokApi } from '@storyblok/astro'
+import type { BASIC } from '../../../../types/BASIC'
 
-const storyblokApi = useStoryblokApi();
+const storyblokApi = useStoryblokApi()
 
 const { data } = await storyblokApi.get(`cdn/stories/globals/f2footer`, {
   version:
-    (import.meta.env.STORYBLOK_IS_PREVIEW ||
-      process.env.STORYBLOK_IS_PREVIEW) === "yes"
-      ? "draft"
-      : "published",
-});
+    (import.meta.env.STORYBLOK_IS_PREVIEW || process.env.STORYBLOK_IS_PREVIEW) === 'yes'
+      ? 'draft'
+      : 'published',
+})
 
-const footerNavigation: BASIC.GlobalProps = data.story.content;
+const footerNavigation: BASIC.GlobalProps = data.story.content
 ---
 
 <footer class="footer">
@@ -61,13 +61,15 @@ const footerNavigation: BASIC.GlobalProps = data.story.content;
 
   @media screen and (max-width: 678px) {
     .footer {
-      padding: 10px 0 10px 0;
+      padding: 10px 0;
     }
   }
+
   @media screen and (max-width: 451px) {
     .footer {
-      padding: 20px 0 20px 0;
+      padding: 20px 0;
     }
+
     .footer-nav {
       display: flex;
       flex-direction: column;

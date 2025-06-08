@@ -1,44 +1,37 @@
 ---
-import "../../../../css/style.css";
-import type { SbBlokData } from "@storyblok/astro";
-import Button from "../../../elements/Button.astro";
+import '../../../../css/style.css'
+import type { SbBlokData } from '@storyblok/astro'
+import Button from '../../../elements/Button.astro'
+import type { BASIC } from '../../../../types/BASIC'
 
 export interface StageProps {
   link: {
-    cached_url?: string;
-  };
-  headline?: string;
-  text?: string;
-  alt?: string;
-  buttonText?: string;
-  image?: BASIC.ImageProps;
-  mobileImage?: BASIC.ImageProps;
+    cached_url?: string
+  }
+  headline?: string
+  text?: string
+  alt?: string
+  buttonText?: string
+  image?: BASIC.ImageProps
+  mobileImage?: BASIC.ImageProps
 }
 
 export interface Props {
-  blok: SbBlokData & StageProps;
+  blok: SbBlokData & StageProps
 }
 
-const { blok } = Astro.props;
+const { blok } = Astro.props
 ---
 
 <section class="home-article">
   {
     blok.image?.filename && (
-      <img
-        class="image-web3-desktop"
-        src={blok.image?.filename}
-        alt={blok.image?.alt}
-      />
+      <img class="image-web3-desktop" src={blok.image?.filename} alt={blok.image?.alt} />
     )
   }
   {
     blok.mobileImage?.filename && (
-      <img
-        class="image-web3-mobile"
-        src={blok.mobileImage?.filename}
-        alt={blok.mobileImage?.alt}
-      />
+      <img class="image-web3-mobile" src={blok.mobileImage?.filename} alt={blok.mobileImage?.alt} />
     )
   }
   <div class="first-section">
@@ -56,6 +49,7 @@ const { blok } = Astro.props;
       display: grid;
       grid-column: 1 / span 8;
     }
+
     .first-section {
       display: grid;
       grid-template-columns: 1.1fr 1fr;
@@ -94,21 +88,25 @@ const { blok } = Astro.props;
         align-items: center;
         padding: 0;
       }
+
       .first-section {
         display: flex;
         flex-direction: column;
       }
+
       .intro h1 {
         font-size: var(--fs-700);
         text-wrap: wrap;
         margin-bottom: 5px;
         font-weight: var(--fw-bold);
       }
+
       .description p {
         text-wrap: wrap;
         font-size: var(--fs-100);
         color: var(--dark-grayish-blue);
       }
+
       .description button {
         background-color: var(--soft-red);
         color: var(--very-dark-blue);
@@ -127,6 +125,7 @@ const { blok } = Astro.props;
       .first-section {
         grid-template-columns: 1fr 1fr;
       }
+
       .intro h1 {
         font-size: var(--fs-800);
       }

@@ -1,6 +1,8 @@
 {
   "extends": ["stylelint-config-standard", "stylelint-config-html"],
+  "ignoreFiles": ["**/dist/**", "**/node_modules/**"],
   "rules": {
+    "media-feature-range-notation": "prefix",
     "no-empty-source": null,
     "selector-class-pattern": [
       "^(?:[a-z][a-zA-Z0-9]+|[a-z0-9]+(?:-[a-z0-9]+)*)$",

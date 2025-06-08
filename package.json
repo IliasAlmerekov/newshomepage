@@ -11,12 +11,14 @@
     "preview": "astro preview",
     "astro": "astro",
     "test": "node --test",
-    "eslint": "eslint ./src",
+    "eslint": "eslint . --ext .ts,.tsx,.astro",
     "stylelint": "stylelint **/*.{css,astro}",
     "stylelint:fix": "stylelint **/*.{css,astro} --fix",
     "prepare": "husky",
     "husky": "npm run stylelint && npm run eslint",
-    "commitlint": "commitlint --edit"
+    "commitlint": "commitlint --edit",
+    "format": "prettier --write src/**/*.{ts,tsx,js,jsx,json,css,md,astro}",
+    "lint:all": "npm run eslint && npm run stylelint && npm run format && npx lint-staged"
   },
   "dependencies": {
     "@astrojs/node": "^9.0.1",
@@ -81,7 +83,7 @@
     ],
     "*.{css,astro}": [
       "stylelint --fix",
-      "prettier --config .prettier.config.mjs --write"
+      "prettier --config .prettierrc --write"
     ],
     "*.{json,md}": [
       "prettier --write"

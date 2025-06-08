@@ -1,13 +1,13 @@
 ---
 export interface ButtonProps {
-  label?: string;
-  href?: string;
+  label?: string
+  href?: string
   link: {
-    cached_url?: string;
-  };
+    cached_url?: string
+  }
 }
 
-const { label, link, href } = Astro.props;
+const { label, link, href } = Astro.props
 ---
 
 <a href={link?.cached_url || href}>{label}</a>
