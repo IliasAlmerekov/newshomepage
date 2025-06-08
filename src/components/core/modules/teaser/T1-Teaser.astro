@@ -57,7 +57,7 @@ teaser = data.stories
     flex-direction: column;
     background-color: var(--very-dark-blue);
     color: var(--off-white);
-    padding: 20px;
+    padding: 40px;
 
     h2 {
       color: var(--soft-orange);
@@ -97,10 +97,11 @@ teaser = data.stories
     }
   }
 
-  @media screen and (max-width: 475px) {
+  @media screen and (max-width: 768px) {
     .new-articles {
       display: flex;
       flex-direction: column;
+      box-sizing: border-box;
       margin-top: 20px;
       gap: 15px;
     }
@@ -130,26 +131,6 @@ teaser = data.stories
     .card p {
       color: var(--dark-grayish-blue);
       font-size: 15px;
-    }
-  }
-
-  @media screen and (min-width: 476px) and (max-width: 1024px) {
-    .new-articles {
-      padding: 20px;
-    }
-
-    h2 {
-      font-size: var(--fs-700);
-    }
-
-    .card p {
-      font-size: 15px;
-    }
-  }
-
-  @media screen and (max-width: 1025px) {
-    .new-articles {
-      padding: 20px;
     }
   }
 </style>
