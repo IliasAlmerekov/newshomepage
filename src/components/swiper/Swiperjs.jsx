@@ -1,34 +1,34 @@
-import React, { useEffect, useState } from "react";
-import { Swiper, SwiperSlide } from "swiper/react";
-import { getTransLink } from "../../system/utils/lang";
+import React, { useEffect, useState } from 'react'
+import { Swiper, SwiperSlide } from 'swiper/react'
+import { getTransLink } from '../../system/utils/lang'
 
-import "swiper/css";
-import "swiper/css/effect-cube";
-import "swiper/css/free-mode";
-import "swiper/css/pagination";
-import "./style.css";
+import 'swiper/css'
+import 'swiper/css/effect-cube'
+import 'swiper/css/free-mode'
+import 'swiper/css/pagination'
+import './style.css'
 
-import { FreeMode, Pagination, Navigation } from "swiper/modules";
+import { FreeMode, Pagination, Navigation } from 'swiper/modules'
 
 export default function Swiperjs({ articles, language }) {
   const [screenWidth, setScreenWidth] = useState(
-    typeof window !== "undefined" ? window.innerWidth : 0,
-  );
+    typeof window !== 'undefined' ? window.innerWidth : 0,
+  )
 
   useEffect(() => {
     const handleResize = () => {
-      setScreenWidth(window.innerWidth);
-    };
+      setScreenWidth(window.innerWidth)
+    }
 
-    window.addEventListener("resize", handleResize);
+    window.addEventListener('resize', handleResize)
 
     return () => {
-      window.removeEventListener("resize", handleResize);
-    };
-  }, []);
+      window.removeEventListener('resize', handleResize)
+    }
+  }, [])
 
-  const isMobile = screenWidth <= 590;
-  const isTablet = screenWidth > 590 && screenWidth <= 1024;
+  const isMobile = screenWidth <= 590
+  const isTablet = screenWidth > 590 && screenWidth <= 1024
 
   return (
     <>
@@ -47,13 +47,10 @@ export default function Swiperjs({ articles, language }) {
           <SwiperSlide>
             <a className="popular" href={getTransLink(language, item.slug)}>
               {item.content.image?.filename && (
-                <img
-                  src={item.content.image.filename}
-                  alt={item.content.image.filename}
-                />
+                <img src={item.content.image.filename} alt={item.content.image.filename} />
               )}
               <div className="content">
-                <span>{(index + 1).toString().padStart(2, "0")}</span>
+                <span>{(index + 1).toString().padStart(2, '0')}</span>
                 <h3>{item.content.headline}</h3>
                 <p>{item.content.subline}</p>
               </div>
@@ -62,5 +59,5 @@ export default function Swiperjs({ articles, language }) {
         ))}
       </Swiper>
     </>
-  );
+  )
 }
