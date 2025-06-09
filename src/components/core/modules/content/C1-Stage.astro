@@ -53,6 +53,7 @@ const { blok } = Astro.props
     .first-section {
       display: grid;
       grid-template-columns: 1.1fr 1fr;
+      gap: 15px;
     }
 
     .intro h1 {
@@ -95,7 +96,7 @@ const { blok } = Astro.props
       }
     }
 
-    @media screen and (min-width: 481px) and (max-width: 1300px) {
+    @media screen and (min-width: 481px) and (max-width: 1490px) {
       .home-article {
         display: inline;
         box-sizing: border-box;
@@ -105,6 +106,12 @@ const { blok } = Astro.props
 
       .intro h1 {
         font-size: var(--fs-900);
+      }
+    }
+
+    @media sreen and (min-width: 1290px) and (max-width: 1490px) {
+      .first-section {
+        gap: 18px;
       }
     }
   </style>
