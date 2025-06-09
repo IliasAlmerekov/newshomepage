@@ -1,6 +1,9 @@
 #!/bin/sh
 echo "🔍 Checking the code before committing..."
 
+
+C:/Users/ilias.almerekov/AppData/Roaming/Python/Python313/Scripts/ggshield.exe secret scan pre-commit || exit 1
+
 npx lint-staged || {
   echo "💀❌ Lint-staged failed. Commit aborted.";
   exit 1;
