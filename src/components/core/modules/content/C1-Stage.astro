@@ -1,44 +1,37 @@
 ---
-import "../../../../css/style.css";
-import type { SbBlokData } from "@storyblok/astro";
-import Button from "../../../elements/Button.astro";
+import '../../../../css/style.css'
+import type { SbBlokData } from '@storyblok/astro'
+import Button from '../../../elements/Button.astro'
+import type { BASIC } from '../../../../types/BASIC'
 
 export interface StageProps {
   link: {
-    cached_url?: string;
-  };
-  headline?: string;
-  text?: string;
-  alt?: string;
-  buttonText?: string;
-  image?: BASIC.ImageProps;
-  mobileImage?: BASIC.ImageProps;
+    cached_url?: string
+  }
+  headline?: string
+  text?: string
+  alt?: string
+  buttonText?: string
+  image?: BASIC.ImageProps
+  mobileImage?: BASIC.ImageProps
 }
 
 export interface Props {
-  blok: SbBlokData & StageProps;
+  blok: SbBlokData & StageProps
 }
 
-const { blok } = Astro.props;
+const { blok } = Astro.props
 ---
 
 <section class="home-article">
   {
     blok.image?.filename && (
-      <img
-        class="image-web3-desktop"
-        src={blok.image?.filename}
-        alt={blok.image?.alt}
-      />
+      <img class="image-web3-desktop" src={blok.image?.filename} alt={blok.image?.alt} />
     )
   }
   {
     blok.mobileImage?.filename && (
-      <img
-        class="image-web3-mobile"
-        src={blok.mobileImage?.filename}
-        alt={blok.mobileImage?.alt}
-      />
+      <img class="image-web3-mobile" src={blok.mobileImage?.filename} alt={blok.mobileImage?.alt} />
     )
   }
   <div class="first-section">
@@ -56,9 +49,11 @@ const { blok } = Astro.props;
       display: grid;
       grid-column: 1 / span 8;
     }
+
     .first-section {
       display: grid;
       grid-template-columns: 1.1fr 1fr;
+      gap: 15px;
     }
 
     .intro h1 {
@@ -75,22 +70,18 @@ const { blok } = Astro.props;
       font-family: var(--ff-base);
       margin-bottom: 40px;
     }
-    @media screen and (min-width: 678px) {
+
+    @media screen and (min-width: 481px) {
       .home-article .image-web3-mobile {
         display: none;
       }
     }
 
-    @media screen and (max-width: 300px) {
-      .home-article .image-web3-mobile {
-        display: none;
-      }
-    }
-
-    @media screen and (max-width: 678px) {
+    @media screen and (max-width: 480px) {
       .home-article .image-web3-desktop {
         display: none;
       }
+
       .home-article {
         display: flex;
         flex-direction: column;
@@ -98,32 +89,29 @@ const { blok } = Astro.props;
         align-items: center;
         padding: 0;
       }
+
       .first-section {
         display: flex;
         flex-direction: column;
       }
+    }
+
+    @media screen and (min-width: 481px) and (max-width: 1490px) {
+      .home-article {
+        display: inline;
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
       .intro h1 {
-        font-size: var(--fs-800);
-        text-wrap: wrap;
-        margin-bottom: 5px;
-        font-weight: var(--fw-bold);
+        font-size: var(--fs-900);
       }
-      .description p {
-        text-wrap: wrap;
-        font-size: var(--fs-100);
-        color: var(--dark-grayish-blue);
-      }
-      .description button {
-        background-color: var(--soft-red);
-        color: var(--very-dark-blue);
-        margin-top: 10px;
-        padding: 14px 25px;
-        cursor: pointer;
-        text-transform: uppercase;
-        letter-spacing: 3px;
-        font-size: 12px;
-        font-weight: var(--fw-semi-bold);
-        text-decoration: none;
+    }
+
+    @media sreen and (min-width: 1290px) and (max-width: 1490px) {
+      .first-section {
+        gap: 18px;
       }
     }
   </style>

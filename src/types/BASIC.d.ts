@@ -1,27 +1,29 @@
 declare namespace BASIC {
   export interface NavigationItems {
     link: {
-      cached_url?: string;
-    };
-    title?: string;
+      cached_url?: string
+    }
+    title?: string
   }
   export interface GlobalProps {
     logo: {
-      filename?: string;
-    };
-    alt?: string;
-    copyright?: string;
-    Navigation?: NavigationItems[];
+      filename?: string
+    }
+    alt?: string
+    copyright?: string
+    Navigation?: NavigationItems[]
   }
 
   export interface LanguageProps {
-    language?: string;
-    langSwitch?: string;
-    slug?: string;
+    language?: string
+    langSwitch?: string
+    slug?: string
   }
 
   export interface ImageProps {
-    alt?: string,
-    filename?: string;
+    alt?: string
+    filename?: string
   }
 }
+
+export { BASIC }

@@ -1,61 +1,62 @@
-import React, { useEffect, useState } from "react";
-import { Swiper, SwiperSlide } from "swiper/react";
-import { getTransLink } from "../../system/utils/lang";
+import React, { useEffect, useState } from 'react'
+import { Swiper, SwiperSlide } from 'swiper/react'
+import { getTransLink } from '../../system/utils/lang'
 
-import "swiper/css";
-import "swiper/css/effect-cube";
-import "swiper/css/free-mode";
-import "swiper/css/pagination";
-import "./style.css";
+import 'swiper/css'
+import 'swiper/css/effect-cube'
+import 'swiper/css/free-mode'
+import 'swiper/css/pagination'
+import 'swiper/css/navigation'
+import './style.css'
 
-import { FreeMode, Pagination, EffectCube } from "swiper/modules";
+import { FreeMode, Pagination, Navigation } from 'swiper/modules'
 
 export default function Swiperjs({ articles, language }) {
-  const [isSmallScreen, setIsSmallScreen] = useState(window.innerWidth <= 590);
+  const [screenWidth, setScreenWidth] = useState(
+    typeof window !== 'undefined' ? window.innerWidth : 0,
+  )
+  console.log(articles.slug)
 
   useEffect(() => {
     const handleResize = () => {
-      setIsSmallScreen(window.innerWidth <= 590);
-    };
+      setScreenWidth(window.innerWidth)
+    }
 
-    window.addEventListener("resize", handleResize);
+    window.addEventListener('resize', handleResize)
 
     return () => {
-      window.removeEventListener("resize", handleResize);
-    };
-  }, []);
+      window.removeEventListener('resize', handleResize)
+    }
+  }, [])
+
+  const isMobile = screenWidth <= 768
+  const isTablet = screenWidth > 768 && screenWidth <= 1300
 
   return (
     <>
       <Swiper
-        effect={isSmallScreen ? "cube" : undefined}
-        grabCursor={true}
-        cubeEffect={{
-          shadow: isSmallScreen ? true : undefined,
-          slideShadows: isSmallScreen ? true : undefined,
-          shadowOffset: isSmallScreen ? 20 : undefined,
-          shadowScale: isSmallScreen ? 0.94 : undefined,
-        }}
-        slidesPerView={isSmallScreen ? undefined : 3}
-        spaceBetween={isSmallScreen ? undefined : 30}
+        slidesPerView={isMobile ? 1 : isTablet ? 2 : 3}
+        spaceBetween={isMobile || isTablet ? 20 : 30}
         freeMode={true}
         pagination={{
           clickable: true,
         }}
-        modules={[FreeMode, Pagination, EffectCube]}
+        navigation={true}
+        modules={[FreeMode, Pagination, Navigation]}
         className="mySwiper"
       >
         {articles.map((item, index) => (
           <SwiperSlide>
+            {item.content.image?.filename && (
+              <img
+                className="card-image"
+                src={item.content.image.filename}
+                alt={item.content.image.filename}
+              />
+            )}
             <a className="popular" href={getTransLink(language, item.slug)}>
-              {item.content.image?.filename && (
-                <img
-                  src={item.content.image.filename}
-                  alt={item.content.image.filename}
-                />
-              )}
               <div className="content">
-                <span>{(index + 1).toString().padStart(2, "0")}</span>
+                <span>{(index + 1).toString().padStart(2, '0')}</span>
                 <h3>{item.content.headline}</h3>
                 <p>{item.content.subline}</p>
               </div>
@@ -64,5 +65,5 @@ export default function Swiperjs({ articles, language }) {
         ))}
       </Swiper>
     </>
-  );
+  )
 }

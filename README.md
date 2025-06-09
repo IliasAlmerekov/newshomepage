@@ -72,8 +72,10 @@ npm run dev       # Start a local development server
 npm run build     # Build the production version of the site
 npm run preview   # Preview the production build locally
 npm run eslint    # Lint TypeScript/JavaScript files
-npm run stylelint # Lint CSS files
+npm run stylelint # Lint CSS and Astro files
 ```
+
+Stylelint is configured to check both standalone CSS files and styles within Astro components.
 
 ## Environment variables
 

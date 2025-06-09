@@ -3,18 +3,14 @@
  * P1 Default Page Template
  * @description Default page template for content pages
  */
-import { type SbBlokData } from "@storyblok/astro";
-import StoryblokComponent from "@storyblok/astro/StoryblokComponent.astro";
+import { type SbBlokData } from '@storyblok/astro'
+import StoryblokComponent from '@storyblok/astro/StoryblokComponent.astro'
 
-const { blok, language } = Astro.props;
+const { blok, language } = Astro.props
 ---
 
 <div class="content-grid">
-  {
-    blok.body?.map((blok: SbBlokData) => (
-      <StoryblokComponent language={language} blok={blok} />
-    ))
-  }
+  {blok.body?.map((blok: SbBlokData) => <StoryblokComponent language={language} blok={blok} />)}
 </div>
 
 <style>
@@ -25,7 +21,7 @@ const { blok, language } = Astro.props;
     grid-gap: 30px;
   }
 
-  @media (max-width: 678px) {
+  @media (max-width: 768px) {
     .content-grid {
       display: flex;
       flex-direction: column;

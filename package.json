@@ -11,19 +11,20 @@
     "preview": "astro preview",
     "astro": "astro",
     "test": "node --test",
-    "eslint": "eslint ./src",
-    "stylelint": "stylelint **/*.css",
-    "stylelint:fix": "stylelint **/*.css --fix",
+    "eslint": "eslint . --ext .ts,.tsx,.astro",
+    "stylelint": "stylelint **/*.{css,astro}",
+    "stylelint:fix": "stylelint **/*.{css,astro} --fix",
     "prepare": "husky",
     "husky": "npm run stylelint && npm run eslint",
-    "commitlint": "commitlint --edit"
+    "commitlint": "commitlint --edit",
+    "format": "prettier --write src/**/*.{ts,tsx,js,jsx,json,css,md,astro}",
+    "lint:all": "npm run eslint && npm run stylelint && npm run format && npx lint-staged"
   },
   "dependencies": {
     "@astrojs/node": "^9.0.1",
     "@astrojs/react": "^4.1.5",
     "@storyblok/astro": "^5.1.2",
     "astro": "^5.7.13",
-    "astro-eslint-parser": "^1.2.2",
     "clone-deep": "^4.0.1",
     "embla-carousel-autoplay": "^8.5.2",
     "embla-carousel-react": "^8.5.2",
@@ -58,14 +59,19 @@
     "@typescript-eslint/eslint-plugin": "^8.33.1",
     "@typescript-eslint/parser": "^8.33.1",
     "@vitejs/plugin-basic-ssl": "^1.2.0",
+    "astro-eslint-parser": "^1.2.2",
     "eslint": "^9.28.0",
     "eslint-plugin-astro": "^1.3.1",
     "eslint-plugin-jsx-a11y": "^6.10.2",
     "eslint-plugin-react": "^7.37.5",
     "eslint-plugin-react-hooks": "^5.2.0",
     "husky": "^9.1.7",
+    "postcss-html": "^1.8.0",
     "prettier": "^3.5.3",
+    "prettier-plugin-astro": "^0.14.1",
     "stylelint": "^16.19.1",
+    "stylelint-config-astro": "^1.0.4",
+    "stylelint-config-html": "^1.1.0",
     "stylelint-config-standard": "^38.0.0",
     "typescript": "^5.8.3",
     "typescript-eslint": "^8.33.1"
@@ -75,9 +81,9 @@
       "prettier --write",
       "eslint --fix"
     ],
-    "*.css": [
+    "*.{css,astro}": [
       "stylelint --fix",
-      "prettier --write"
+      "prettier --config .prettierrc --write"
     ],
     "*.{json,md}": [
       "prettier --write"

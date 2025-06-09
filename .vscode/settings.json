@@ -1,4 +1,7 @@
 {
   "eslint.useFlatConfig": true,
-  "eslint.validate": ["javascript", "typescript", "typescriptreact"]
+  "eslint.validate": ["javascript", "typescript", "typescriptreact"],
+  "stylelint.validate": ["css", "postcss", "html", "vue", "astro"],
+  "git.enableCommitSigning": false,
+  "git.useEditorAsCommitInput": false
 }

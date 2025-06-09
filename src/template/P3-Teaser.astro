@@ -1,27 +1,24 @@
 ---
-import {
-  renderRichText,
-  type ISbRichtext,
-  type SbBlokData,
-} from "@storyblok/astro";
-import "../styles/style.css";
-import { getTransLink } from "../system/utils/lang";
-import Button from "../components/elements/Button.astro";
+import { renderRichText, type ISbRichtext, type SbBlokData } from '@storyblok/astro'
+import '../css/style.css'
+import { getTransLink } from '../system/utils/lang'
+import Button from '../components/elements/Button.astro'
+import type { BASIC } from '../types/BASIC'
 
 export interface TeaserProps {
-  headline?: string;
-  text?: string;
-  richtext?: ISbRichtext | undefined;
-  image?: BASIC.ImageProps;
+  headline?: string
+  text?: string
+  richtext?: ISbRichtext | undefined
+  image?: BASIC.ImageProps
 }
 
 export interface Props extends BASIC.LanguageProps {
-  blok: SbBlokData & TeaserProps;
+  blok: SbBlokData & TeaserProps
 }
 
-const { blok, language } = Astro.props;
+const { blok, language } = Astro.props
 
-const renderedRichText = renderRichText(blok.richtext);
+const renderedRichText = renderRichText(blok.richtext)
 ---
 
 <div class="teaser">
@@ -31,7 +28,7 @@ const renderedRichText = renderRichText(blok.richtext);
     <p>{blok.text}</p>
     <p set:html={renderedRichText} />
   </div>
-  <Button href={getTransLink(language, "/")} label="Back" />
+  <Button href={getTransLink(language, '/')} label="Back" />
 </div>
 
 <style>
@@ -50,13 +47,15 @@ const renderedRichText = renderRichText(blok.richtext);
       margin-top: 40px;
       background-color: var(--off-white);
       border-radius: 8px;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      box-shadow: 0 4px 8px rgb(0 0 0 / 0.1%);
       overflow: hidden;
       transition: transform 0.2s ease-in-out;
     }
+
     .teaser-content:hover {
       transform: translateY(-5px);
     }
+
     h1 {
       font-size: var(--fs-800);
       font-weight: var(--fw-semi-bold);
@@ -71,16 +70,19 @@ const renderedRichText = renderRichText(blok.richtext);
       margin: 30px;
       list-style: none;
     }
+
     .news-teaser {
       background-color: var(--very-dark-blue);
       color: var(--off-white);
       padding: 20px;
     }
+
     .news-teaser p {
       color: var(--dark-grayish-blue);
       font-size: var(--fs-400);
       margin: 0;
     }
+
     .richtext-content h2 {
       color: var(--soft-orange);
       font-weight: 600;
@@ -88,6 +90,7 @@ const renderedRichText = renderRichText(blok.richtext);
       padding: 0;
       margin: 0;
     }
+
     .news-teaser h3 a {
       font-size: var(--fs-500);
       font-weight: bold;
@@ -95,23 +98,26 @@ const renderedRichText = renderRichText(blok.richtext);
       cursor: pointer;
       text-decoration: none;
     }
+
     .news-teaser h3 a:hover {
       font-size: var(--fs-500);
       font-weight: bold;
       color: var(--soft-orange);
     }
+
     .richtext-content ul {
       list-style: none;
       margin: 0;
       padding: 0;
     }
+
     .richtext-content li p::before {
-      content: "";
+      content: '';
       display: inline-block;
       width: 20px;
       height: 20px;
       margin-right: 10px;
-      background-image: url("/images/laptop.svg");
+      background-image: url('/images/laptop.svg');
       background-size: contain;
       background-repeat: no-repeat;
     }

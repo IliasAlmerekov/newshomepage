@@ -1,6 +1,6 @@
 @font-face {
   font-family: Inter;
-  src: url("/fonts/Inter-VariableFont_slnt,wght.ttf");
+  src: url('../system/fonts/Inter-VariableFont_slnt,wght.ttf');
   font-weight: 400 900;
   font-display: swap;
 }
@@ -15,7 +15,7 @@
   --clr-body: var(--clr-neutral-400);
   --clr-heading: var(--clr-neutral-900);
   --clr-accent-400: var(--soft-orange);
-  --ff-base: "Inter", sans-serif;
+  --ff-base: 'Inter', sans-serif;
   --fw-regular: 400;
   --fw-semi-bold: 700;
   --fw-bold: 900;
