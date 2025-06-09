@@ -30,7 +30,7 @@ export default function Swiperjs({ articles, language }) {
   }, [])
 
   const isMobile = screenWidth <= 768
-  const isTablet = screenWidth > 768 && screenWidth <= 1024
+  const isTablet = screenWidth > 768 && screenWidth <= 1300
 
   return (
     <>

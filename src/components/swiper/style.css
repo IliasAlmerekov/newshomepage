@@ -74,7 +74,6 @@
 /* Responsive styles */
 
 /* Mobile styles */
-
 @media screen and (max-width: 375px) {
   .card-image {
     height: 120px;
@@ -105,6 +104,7 @@
   }
 }
 
+/* Mobile landscape styles */
 @media screen and (min-width: 376px) and (max-width: 480px) {
   .content {
     gap: 0;
@@ -121,6 +121,7 @@
   }
 }
 
+/* Tablet styles */
 @media screen and (min-width: 481px) and (max-width: 768px) {
   .content {
     gap: 10px;
@@ -146,42 +147,30 @@
   }
 }
 
-/* @media screen and (max-width: 590px) {
-  .popular img {
-    height: 200px;
-    width: 150px;
-    margin-right: 15px;
-    object-fit: cover;
+/* Desktop styles */
+@media screen and (min-width: 769px) and (max-width: 1024px) {
+  .swiper {
+    margin-bottom: 10px;
+    padding-bottom: 0;
+    margin-top: 30px;
+  }
+
+  .swiper-wrapper {
+    padding-bottom: 0;
   }
 
   .content {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 0;
+    gap: 2px;
+  }
+}
+
+@media screen and (min-width: 1025px) {
+  .swiper {
+    padding-bottom: 15px;
   }
 
-  .content span {
-    align-self: flex-start;
-    font-size: var(--fs-700);
-    font-weight: 700;
-    color: var(--soft-red);
+  .swiper-pagination {
+    margin-bottom: 30px;
+    padding: 0;
   }
-
-  .content h3 {
-    font-size: var(--fs-400);
-    margin: 0;
-    cursor: pointer;
-    color: var(--very-dark-blue);
-  }
-
-  .content h3:hover {
-    color: var(--soft-red);
-  }
-
-  .content p {
-    font-size: 14px;
-    color: var(--dark-grayish-blue);
-    line-height: 1.5;
-  }
-} */
+}

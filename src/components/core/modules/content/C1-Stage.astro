@@ -70,13 +70,13 @@ const { blok } = Astro.props
       margin-bottom: 40px;
     }
 
-    @media screen and (min-width: 476px) {
+    @media screen and (min-width: 481px) {
       .home-article .image-web3-mobile {
         display: none;
       }
     }
 
-    @media screen and (max-width: 477px) {
+    @media screen and (max-width: 480px) {
       .home-article .image-web3-desktop {
         display: none;
       }
@@ -93,47 +93,18 @@ const { blok } = Astro.props
         display: flex;
         flex-direction: column;
       }
-
-      .intro h1 {
-        font-size: var(--fs-700);
-        text-wrap: wrap;
-        margin-bottom: 5px;
-        font-weight: var(--fw-bold);
-      }
-
-      .description p {
-        text-wrap: wrap;
-        font-size: var(--fs-100);
-        color: var(--dark-grayish-blue);
-      }
-
-      .description button {
-        background-color: var(--soft-red);
-        color: var(--very-dark-blue);
-        margin-top: 10px;
-        padding: 14px 25px;
-        cursor: pointer;
-        text-transform: uppercase;
-        letter-spacing: 3px;
-        font-size: 12px;
-        font-weight: var(--fw-semi-bold);
-        text-decoration: none;
-      }
     }
 
-    @media screen and (min-width: 476px) and (max-width: 1024px) {
-      .first-section {
-        grid-template-columns: 1fr 1fr;
+    @media screen and (min-width: 481px) and (max-width: 1300px) {
+      .home-article {
+        display: inline;
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
       }
 
       .intro h1 {
         font-size: var(--fs-800);
-      }
-    }
-
-    @media screen and (min-width: 1025px) {
-      .first-section {
-        grid-template-columns: 1.1fr 1fr;
       }
     }
   </style>

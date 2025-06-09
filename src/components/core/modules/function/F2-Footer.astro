@@ -59,15 +59,9 @@ const footerNavigation: BASIC.GlobalProps = data.story.content
     color: var(--soft-red);
   }
 
-  @media screen and (max-width: 678px) {
+  @media screen and (max-width: 480px) {
     .footer {
       padding: 10px 0;
-    }
-  }
-
-  @media screen and (max-width: 451px) {
-    .footer {
-      padding: 20px 0;
     }
 
     .footer-nav {
@@ -76,7 +70,19 @@ const footerNavigation: BASIC.GlobalProps = data.story.content
       text-align: center;
       justify-content: center;
       margin-top: 1rem;
-      gap: 1.5rem;
+      gap: 1rem;
+    }
+  }
+
+  @media screen and (min-width: 769px) and (max-width: 1024px) {
+    .footer {
+      padding-top: 25px;
+    }
+  }
+
+  @media screen and (min-width: 1025px) {
+    .footer {
+      padding-top: 50px;
     }
   }
 </style>

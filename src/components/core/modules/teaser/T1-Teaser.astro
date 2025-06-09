@@ -97,21 +97,14 @@ teaser = data.stories
     }
   }
 
-  @media screen and (max-width: 768px) {
+  @media screen and (max-width: 480px) {
     .new-articles {
       display: flex;
       flex-direction: column;
       box-sizing: border-box;
+      padding: 20px;
       margin-top: 20px;
       gap: 15px;
-    }
-
-    h2 {
-      color: var(--soft-orange);
-      font-weight: 600;
-      font-size: var(--fs-700);
-      padding: 0;
-      margin: 0;
     }
 
     h3 a {
@@ -130,7 +123,59 @@ teaser = data.stories
 
     .card p {
       color: var(--dark-grayish-blue);
-      font-size: 15px;
+      font-size: var(--fs-400);
+    }
+  }
+
+  @media screen and (min-width: 481px) and (max-width: 768px) {
+    .new-articles {
+      padding: 20px;
+    }
+
+    h3 a {
+      font-size: var(--fs-500);
+      font-weight: bold;
+      color: var(--off-white);
+      cursor: pointer;
+      text-decoration: none;
+    }
+
+    h3 a:hover {
+      font-size: var(--fs-500);
+      font-weight: bold;
+      color: var(--soft-orange);
+    }
+
+    .card p {
+      color: var(--dark-grayish-blue);
+      font-size: var(--fs-400);
+    }
+  }
+
+  @media screen and (min-width: 769px) and (max-width: 1300px) {
+    .new-articles {
+      padding: 10px;
+    }
+
+    .new-articles h2 {
+      font-size: var(--fs-700);
+    }
+
+    h3 a {
+      font-size: var(--fs-400);
+    }
+
+    h3 a:hover {
+      font-size: var(--fs-400);
+    }
+
+    .new-articles .card {
+      margin-top: 0;
+    }
+
+    .card p {
+      color: var(--dark-grayish-blue);
+      font-size: var(--fs-400);
     }
   }
 </style>
