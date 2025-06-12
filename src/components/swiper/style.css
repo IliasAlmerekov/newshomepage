@@ -63,12 +63,16 @@
 
 .content h3:hover {
   color: var(--soft-red);
+  transition: all 0.3s ease-out;
 }
 
 .content p {
   font-size: 14px;
   color: var(--dark-grayish-blue);
   line-height: 1.5;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-height: 80px;
 }
 
 /* Responsive styles */
